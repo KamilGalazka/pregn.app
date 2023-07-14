@@ -1,5 +1,6 @@
 <template>
-  <h1>{{ msg }}</h1>
+  <pre>{{ msg }}</pre>
+  <a>TESTowt</a>
 </template>
 
 <script>
@@ -14,10 +15,10 @@ export default {
   created() {
     axios({
       method: "GET",
-      url: "api/test",
+      url: "http://localhost:3000/api/navigation",
     }).then((response) => {
-      console.log(response);
-      this.msg = response.data.response.data;
+      // console.log(response);
+      this.msg = response.data.response;
     });
   },
 };
@@ -40,6 +41,6 @@ li {
 }
 
 a {
-  color: #42b983;
+  color: $basic-color-blue;
 }
 </style>

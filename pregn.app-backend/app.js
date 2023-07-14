@@ -6,12 +6,27 @@ const port = 3000
 
 app.use(cors({origin: '*'}));
 
-app.get('/api/test', (req, res) => {
-    res.status(200).json( {
+app.get('/api/navigation', (req, res) => {
+    res.status(200).json({
         status: 'OK',
-        response: {
-            data: 'Test'
-        }
+        response: [
+            {
+                name: "Etapy ciąży",
+                path: "/path1",
+            },
+            {
+                name: "Zdrowie",
+                path: "/path4"
+            },
+            {
+                name: "Wyprawka",
+                path: "/path2",
+            },
+            {
+                name: "Zaloguj się",
+                path: "/path3",
+            },
+        ],
     })
 })
 app.listen(port, () => {
