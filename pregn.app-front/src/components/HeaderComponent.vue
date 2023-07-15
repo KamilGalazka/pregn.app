@@ -8,12 +8,14 @@
         <RouterLink :to="item.path">{{ item.name }}</RouterLink>
       </li>
     </ul>
+    <LocaleChanger />
   </nav>
 </template>
 
 <script setup>
 import axios from "axios";
 import { reactive } from "vue";
+import LocaleChanger from "@/components/LocaleChanger.vue";
 
 const state = reactive({
   menuList: {},

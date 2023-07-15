@@ -7,7 +7,7 @@
         class="banner-left__image"
       />
       <div class="banner-left__text">
-        <h1>Lorem ipsum title</h1>
+        <h1>{{ $t("banner.title") }}</h1>
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Imperdiet
@@ -45,7 +45,6 @@ import BasicButton from "@/components/BasicButton.vue";
   width: 100vw;
   height: 90vh;
   min-height: 900px;
-  background-color: $basic-color-gray;
 
   img {
     border-radius: 5px;
