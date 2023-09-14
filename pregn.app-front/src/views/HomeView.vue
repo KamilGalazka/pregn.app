@@ -1,18 +1,13 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.webp" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
-  </div>
+  <BannerExtra />
+  <BannerRectangle />
+  <BannerRectangle />
+  <BannerRectangle />
+  <FooterComponent />
 </template>
 
-<script>
-// @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
-
-export default {
-  name: "HomeView",
-  components: {
-    HelloWorld,
-  },
-};
+<script setup>
+import BannerRectangle from "@/components/BannerRectangle.vue";
+import FooterComponent from "@/components/FooterComponent.vue";
+import BannerExtra from "@/components/BannerExtra.vue";
 </script>

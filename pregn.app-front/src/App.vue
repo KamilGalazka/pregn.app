@@ -1,17 +1,22 @@
 <template>
   <Suspense>
     <HeaderComponent />
-
-    <template #fallback> Loading </template>
+    <template #fallback> Loading</template>
   </Suspense>
-  <BannerRectangle />
-  <BannerRectangle />
-  <BannerRectangle />
-  <FooterComponent />
+  <router-view />
 </template>
 
 <script setup>
 import HeaderComponent from "@/components/HeaderComponent.vue";
-import BannerRectangle from "@/components/BannerRectangle.vue";
-import FooterComponent from "@/components/FooterComponent.vue";
 </script>
+
+<style>
+#app {
+  overflow: hidden;
+  background-color: $basic-color-gray;
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+}
+</style>

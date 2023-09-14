@@ -21,6 +21,8 @@ const state = reactive({
   menuList: {},
 });
 
+state.menuList = await fetchMenuList();
+
 async function fetchMenuList() {
   const response = await axios({
     method: "GET",
@@ -29,8 +31,6 @@ async function fetchMenuList() {
 
   return response.data.response;
 }
-
-state.menuList = await fetchMenuList();
 </script>
 
 <style scoped lang="scss">
