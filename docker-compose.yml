@@ -9,6 +9,8 @@ services:
     environment:
       - POSTGRES_USER=docker
       - POSTGRES_PASSWORD=postgres
+    healthcheck:
+      test: "exit 0"
 
   api:
     build: ./api
@@ -17,7 +19,8 @@ services:
     volumes:
       - ./api:/api
     depends_on:
-      - db
+      db:
+        condition: service_healthy
 
   front:
     build: ./front

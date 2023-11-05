@@ -11,3 +11,22 @@
 - ExpressJS
 - Postgres
 - Cypress for E2E tests
+
+### How to start:
+```bash
+git clone https://github.com/KamilGalazka/pregn.app.git
+or
+git clone git@github.com:KamilGalazka/pregn.app.git
+```
+
+```bash
+cd pregn.app
+```
+
+```dockerfile
+docker compose build
+```
+
+```dockerfile
+docker compose up
+```
