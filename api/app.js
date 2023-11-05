@@ -4,13 +4,13 @@ const {Client} = require('pg')
 const bodyParser = require('body-parser')
 
 const app = express()
-const port = 3000
+const port = process.env.PORT || 3000
 const client = new Client({
-    user: 'postgres',
-    host: 'localhost',
+    user: 'docker',
+    host: 'db',
     database: 'pregnapp',
-    password: 'kamil',
-    port: 5433,
+    password: 'postgres',
+    port: 5432,
 })
 
 app.use(cors({origin: '*'}))
@@ -27,7 +27,7 @@ process.on('exit', () => {
 })
 
 app.listen(port, () => {
-    console.log('test')
+    console.log('test2')
 })
 
 app.post('/api/user/create', (req, res) => {
