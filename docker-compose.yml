@@ -1,0 +1,27 @@
+version: "3"
+services:
+  db:
+    build: ./db
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./db:/api/db
+    environment:
+      - POSTGRES_USER=docker
+      - POSTGRES_PASSWORD=postgres
+
+  api:
+    build: ./api
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./api:/api
+    depends_on:
+      - db
+
+  front:
+    build: ./front
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./front:/front

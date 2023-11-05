@@ -1,0 +1,20 @@
+{
+  "banner": {
+    "title": "Przykładowy tytuł"
+  },
+  "headers": {
+    "registration": "rejestracja",
+    "login": "logowanie"
+  },
+  "registration": {
+    "name": "imię",
+    "lastname": "nazwisko",
+    "email": "email",
+    "password": "hasło",
+    "repeat_password": "powtórz hasło",
+    "button": "załóż konto"
+  },
+  "login": {
+    "button": "zaloguj się"
+  }
+}
