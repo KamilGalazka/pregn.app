@@ -1,11 +1,11 @@
+<script setup></script>
+
 <template>
   <div class="wrapper">
     <!--    <div class="banner__shape"></div>-->
     <div id="heart"></div>
   </div>
 </template>
-
-<script setup></script>
 
 <style scoped lang="scss">
 .banner__shape {

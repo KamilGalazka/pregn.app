@@ -1,113 +1,3 @@
-<template>
-  <h1>Logowanie</h1>
-  <form
-    class="row g-3 align-self-center"
-    @submit.prevent="submitHandler"
-    novalidate
-  >
-    <div class="col-6">
-      <label for="inputFirstName" class="form-label">First Name</label>
-      <input
-        type="text"
-        class="form-control"
-        id="inputFirstName"
-        placeholder="John"
-        required
-        v-model="firstName"
-        @blur="validateEachField"
-      />
-      <div class="invalid-feedback" v-if="v$.firstName.$error">
-        {{ v$.firstName.$errors[0].$message }}
-      </div>
-    </div>
-    <div class="col-6">
-      <label for="inputLastName" class="form-label">Last Name</label>
-      <input
-        type="text"
-        class="form-control"
-        id="inputLastName"
-        placeholder="Smith"
-        required
-        v-model="lastName"
-        @blur="validateEachField"
-      />
-      <div class="invalid-feedback" v-if="v$.lastName.$error">
-        {{ v$.lastName.$errors[0].$message }}
-      </div>
-    </div>
-
-    <div class="col-6">
-      <label for="inputEmail" class="form-label">Email</label>
-      <input
-        type="email"
-        class="form-control"
-        id="inputEmail"
-        placeholder="example@ecample.com"
-        required
-        v-model="email"
-        @blur="validateEachField"
-      />
-      <div class="invalid-feedback" v-if="v$.email.$error">
-        {{ v$.email.$errors[0].$message }}
-      </div>
-    </div>
-
-    <div class="col-6">
-      <label for="inputPassword" class="form-label">Password</label>
-      <input
-        type="password"
-        class="form-control"
-        id="inputPassword"
-        placeholder="password"
-        required
-        v-model="password"
-        @blur="validateEachField"
-      />
-      <div class="invalid-feedback" v-if="v$.password.$error">
-        {{ v$.password.$errors[0].$message }}
-      </div>
-    </div>
-    <div class="col-6">
-      <label for="inputConfirmPassword" class="form-label"
-        >Confirm Password</label
-      >
-      <input
-        type="password"
-        class="form-control"
-        id="inputConfirmPassword"
-        placeholder="confirm your password"
-        required
-        v-model="confirmPassword"
-        @blur="validateEachField"
-      />
-      <div class="invalid-feedback" v-if="v$.confirmPassword.$error">
-        {{ v$.confirmPassword.$errors[0].$message }}
-      </div>
-    </div>
-
-    <div class="col-6">
-      <div class="form-check">
-        <input
-          class="form-check-input"
-          type="checkbox"
-          id="inputTerms"
-          v-model="terms"
-          @blur="validateEachField"
-        />
-        <label class="form-check-label" for="inputTerms">
-          Please confirm that you agree to our
-          <router-link id="termsLink" to="/temp" style="color: inherit">
-            terms & conditions
-          </router-link>
-        </label>
-      </div>
-    </div>
-    <div id="submitButton" class="col-6">
-      <button type="submit" class="btn btn-dark col-12">Sign Up</button>
-    </div>
-  </form>
-</template>
-
 <script>
 import useValidate from "@vuelidate/core";
 import {
@@ -240,6 +130,116 @@ export default {
   },
 };
 </script>
+
+<template>
+  <h1>Logowanie</h1>
+  <form
+    class="row g-3 align-self-center"
+    @submit.prevent="submitHandler"
+    novalidate
+  >
+    <div class="col-6">
+      <label for="inputFirstName" class="form-label">First Name</label>
+      <input
+        type="text"
+        class="form-control"
+        id="inputFirstName"
+        placeholder="John"
+        required
+        v-model="firstName"
+        @blur="validateEachField"
+      />
+      <div class="invalid-feedback" v-if="v$.firstName.$error">
+        {{ v$.firstName.$errors[0].$message }}
+      </div>
+    </div>
+    <div class="col-6">
+      <label for="inputLastName" class="form-label">Last Name</label>
+      <input
+        type="text"
+        class="form-control"
+        id="inputLastName"
+        placeholder="Smith"
+        required
+        v-model="lastName"
+        @blur="validateEachField"
+      />
+      <div class="invalid-feedback" v-if="v$.lastName.$error">
+        {{ v$.lastName.$errors[0].$message }}
+      </div>
+    </div>
+
+    <div class="col-6">
+      <label for="inputEmail" class="form-label">Email</label>
+      <input
+        type="email"
+        class="form-control"
+        id="inputEmail"
+        placeholder="example@ecample.com"
+        required
+        v-model="email"
+        @blur="validateEachField"
+      />
+      <div class="invalid-feedback" v-if="v$.email.$error">
+        {{ v$.email.$errors[0].$message }}
+      </div>
+    </div>
+
+    <div class="col-6">
+      <label for="inputPassword" class="form-label">Password</label>
+      <input
+        type="password"
+        class="form-control"
+        id="inputPassword"
+        placeholder="password"
+        required
+        v-model="password"
+        @blur="validateEachField"
+      />
+      <div class="invalid-feedback" v-if="v$.password.$error">
+        {{ v$.password.$errors[0].$message }}
+      </div>
+    </div>
+    <div class="col-6">
+      <label for="inputConfirmPassword" class="form-label"
+        >Confirm Password</label
+      >
+      <input
+        type="password"
+        class="form-control"
+        id="inputConfirmPassword"
+        placeholder="confirm your password"
+        required
+        v-model="confirmPassword"
+        @blur="validateEachField"
+      />
+      <div class="invalid-feedback" v-if="v$.confirmPassword.$error">
+        {{ v$.confirmPassword.$errors[0].$message }}
+      </div>
+    </div>
+
+    <div class="col-6">
+      <div class="form-check">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          id="inputTerms"
+          v-model="terms"
+          @blur="validateEachField"
+        />
+        <label class="form-check-label" for="inputTerms">
+          Please confirm that you agree to our
+          <router-link id="termsLink" to="/temp" style="color: inherit">
+            terms & conditions
+          </router-link>
+        </label>
+      </div>
+    </div>
+    <div id="submitButton" class="col-6">
+      <button type="submit" class="btn btn-dark col-12">Sign Up</button>
+    </div>
+  </form>
+</template>
 
 <style scoped lang="scss">
 h1 {

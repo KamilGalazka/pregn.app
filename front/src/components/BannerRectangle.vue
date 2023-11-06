@@ -1,3 +1,7 @@
+<script setup>
+import BasicButton from "@/components/BasicButton.vue";
+</script>
+
 <template>
   <div class="wrapper">
     <div class="banner-left">
@@ -50,10 +54,6 @@
     </div>
   </div>
 </template>
-
-<script setup>
-import BasicButton from "@/components/BasicButton.vue";
-</script>
 
 <style scoped lang="scss">
 .wrapper {

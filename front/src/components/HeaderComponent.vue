@@ -1,17 +1,3 @@
-<template>
-  <nav>
-    <RouterLink to="/">
-      <img alt="Application logo" src="@/assets/logo.webp" class="nav__logo" />
-    </RouterLink>
-    <ul>
-      <li v-for="item in state.menuList" :key="item">
-        <RouterLink :to="item.path">{{ item.name }}</RouterLink>
-      </li>
-    </ul>
-    <LocaleChanger />
-  </nav>
-</template>
-
 <script setup>
 import axios from "axios";
 import { reactive } from "vue";
@@ -33,19 +19,34 @@ async function fetchMenuList() {
 }
 </script>
 
-<style scoped lang="scss">
-nav {
-  display: flex;
-  width: 100vw;
-  padding: 10px;
+<template>
+  <nav class="nav">
+    <RouterLink to="/">
+      <img alt="Application logo" src="@/assets/logo.webp" class="nav__logo" />
+    </RouterLink>
+    <ul class="nav__list">
+      <li v-for="item in state.menuList" :key="item" class="nav__list--item">
+        <RouterLink :to="item.path">{{ item.name }}</RouterLink>
+      </li>
+    </ul>
+    <LocaleChanger />
+  </nav>
+</template>
 
-  .nav__logo {
+<style scoped lang="scss">
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 10px 0;
+
+  &__logo {
     width: 180px;
     height: 60px;
     margin-left: 50px;
   }
 
-  ul {
+  &__list {
     display: flex;
     width: 60%;
     justify-content: space-around;
@@ -55,11 +56,11 @@ nav {
     a {
       text-decoration: none;
       color: black;
-      font-weight: 500;
+      font-weight: 300;
       letter-spacing: 3px;
 
       &:hover {
-        color: aqua;
+        color: #727272;
       }
     }
   }

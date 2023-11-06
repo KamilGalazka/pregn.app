@@ -1,8 +1,3 @@
-<template>
-  <pre>{{ msg }}</pre>
-  <a>TESTowt</a>
-</template>
-
 <script>
 import axios from "axios";
 export default {
@@ -24,7 +19,11 @@ export default {
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
+<template>
+  <pre>{{ msg }}</pre>
+  <a>TESTowt</a>
+</template>
+
 <style scoped lang="scss">
 h3 {
   margin: 40px 0 0;

@@ -1,7 +1,3 @@
-<template>
-  <button class="btn">{{ props.buttonText }}</button>
-</template>
-
 <script setup>
 import { defineProps } from "vue";
 
@@ -12,6 +8,10 @@ const props = defineProps({
   },
 });
 </script>
+
+<template>
+  <button class="btn">{{ props.buttonText }}</button>
+</template>
 
 <style scoped lang="scss">
 .btn {

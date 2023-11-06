@@ -1,3 +1,10 @@
+<script setup>
+const langs = [
+  { code: "pl", text: "Polski" },
+  { code: "en", text: "English" },
+];
+</script>
+
 <template>
   <div class="locale-changer">
     <select v-model="$i18n.locale">
@@ -7,12 +14,5 @@
     </select>
   </div>
 </template>
-
-<script setup>
-const langs = [
-  { code: "pl", text: "Polski" },
-  { code: "en", text: "English" },
-];
-</script>
 
 <style scoped lang="scss"></style>
