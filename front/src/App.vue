@@ -1,10 +1,15 @@
 <script setup>
 import HeaderComponent from "@/components/HeaderComponent.vue";
+import OpeningView from "@/views/OpeningView.vue";
+import { useStore } from "@/stores/store";
+
+const store = useStore();
 </script>
 
 <template>
-  <div class="container">
-    <div class="wrapper">
+  <OpeningView v-if="!store.isOpeningPageClosed" />
+  <div v-else class="basic-container">
+    <div class="basic-wrapper">
       <Suspense>
         <HeaderComponent />
         <template #fallback> Loading</template>
@@ -17,22 +22,8 @@ import HeaderComponent from "@/components/HeaderComponent.vue";
 <style lang="scss">
 #app {
   overflow: hidden;
-  background-color: $basic-color-gray;
-  font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-
-  .container {
-    max-width: 1920px;
-    overflow: hidden;
-    padding: 0;
-    margin: 0 auto;
-  }
-
-  .wrapper {
-    margin: 0 56px;
-    overflow: hidden;
-  }
 }
 </style>

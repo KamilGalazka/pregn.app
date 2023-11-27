@@ -1,13 +1,17 @@
+const dotenv = require('dotenv')
 const express = require('express')
 const cors = require('cors')
 const {Client} = require('pg')
 const bodyParser = require('body-parser')
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
 
+dotenv.config()
+
+let client
 const app = express()
 const port = process.env.PORT || 3000
 const saltRounds = 10
-let client
 
 if (process.env.NODE_ENV === 'production') {
     client = new Client({
@@ -59,10 +63,11 @@ app.post('/api/user/create', (req, res) => {
                           values ('${name}', '${lastname}', '${email}', '${hash}', 'user', 't1',
                                   't2')`, (err, result) => {
                 if (err) {
-                    console.error('Błąd podczas zapytania do bazy danych:', err);
-                    res.status(500).send(err.detail);
+                    res.status(409).json({
+                        status: 'User already exists',
+                    });
                 } else {
-                    res.status(200).json({
+                    res.status(201).json({
                         status: 'User created',
                     });
                 }
@@ -71,7 +76,7 @@ app.post('/api/user/create', (req, res) => {
     })
 })
 
-app.get('/api/user/login', (req, res) => {
+app.post('/api/user/login', (req, res) => {
     const {
         email,
         password,
@@ -80,29 +85,39 @@ app.get('/api/user/login', (req, res) => {
     client.query(`select email
                   from users
                   where email = '${email}'`, (err, result) => {
+
         if (err || !result.rowCount) {
-            res.status(500).json({
+            res.status(401).json({
                 status: 'Wrong password or email'
             })
+        } else {
+            client.query(`select id, password_hash, role
+                          from users
+                          where email = '${email}'`, (err, result) => {
+
+                const hashedPassword = result.rows[0].password_hash
+                const userRole = result.rows[0].role
+                const userId = result.rows[0].id
+
+                bcrypt.compare(password, hashedPassword, (err, result) => {
+                    if (result) {
+                        const accessToken = jwt.sign({id: userId}, process.env.TOKEN_SECRET, {expiresIn: 86400})
+                        const refreshToken = jwt.sign({id: userId}, process.env.REFRESH_TOKEN_SECRET, {expiresIn: 525600})
+console.log(accessToken)
+                        res.status(200).json({
+                            status: 'Login successful',
+                            role: userRole,
+                            token: accessToken,
+                            refreshToken: refreshToken,
+                        })
+                    } else {
+                        res.status(401).json({
+                            status: 'Wrong password or email2',
+                        })
+                    }
+                })
+            })
         }
-    })
-
-    client.query(`select password_hash
-                  from users
-                  where email = '${email}'`, (err, result) => {
-        const hashedPassword = result.rows[0].password_hash
-
-        bcrypt.compare(password, hashedPassword, (err, result) => {
-            if (result) {
-                res.status(200).json({
-                    status: 'Login successful'
-                })
-            } else {
-                res.status(500).json({
-                    status: 'Wrong password or email'
-                })
-            }
-        })
     })
 })
 
@@ -112,7 +127,7 @@ app.get('/api/navigation', (req, res) => {
         response: [
             {
                 name: "Etapy ciąży",
-                path: "/path1",
+                path: "/stages",
             },
             {
                 name: "Zdrowie",
@@ -121,14 +136,6 @@ app.get('/api/navigation', (req, res) => {
             {
                 name: "Wyprawka",
                 path: "/path2",
-            },
-            {
-                name: "Logowanie",
-                path: "/login",
-            },
-            {
-                name: "Rejestracja",
-                path: "/register",
             },
         ],
     })

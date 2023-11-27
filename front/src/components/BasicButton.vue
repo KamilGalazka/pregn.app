@@ -19,6 +19,7 @@ const props = defineProps({
   margin-top: 10px;
   background-color: $basic-color-blue;
   border-color: $basic-color-blue;
+  height: 48px;
 
   &:focus {
     border-color: lighten($basic-color-blue, 30%);

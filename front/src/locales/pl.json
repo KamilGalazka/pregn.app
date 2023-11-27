@@ -1,20 +1,42 @@
 {
+  "basic": {
+    "name": "imię",
+    "namePlaceholder": "Podaj imię",
+    "lastname": "nazwisko",
+    "lastnamePlaceholder": "Podaj nazwisko",
+    "email": "email",
+    "emailPlaceholder": "Podaj email",
+    "password": "hasło",
+    "passwordPlaceholder": "Podaj hasło",
+    "repeatPassword": "powtórz hasło",
+    "repeatPasswordPlaceholder": "Podaj ponownie hasło"
+  },
   "banner": {
     "title": "Przykładowy tytuł"
   },
-  "headers": {
-    "registration": "rejestracja",
-    "login": "logowanie"
-  },
   "registration": {
-    "name": "imię",
-    "lastname": "nazwisko",
-    "email": "email",
-    "password": "hasło",
-    "repeat_password": "powtórz hasło",
-    "button": "załóż konto"
+    "header": "Rejestracja",
+    "button": "Załóż konto",
+    "terms": "Akceptuje zasady i regulamin.",
+    "success": "Rejestracja zakończona sukcesem. Za chwilę nastąpi przekierowanie."
   },
   "login": {
-    "button": "zaloguj się"
+    "header": "Logowanie",
+    "button": "Zaloguj się",
+    "noAccount": "Nie masz konta? Zarejestruj się już teraz.",
+    "logout": "wyloguj się"
+  },
+  "stages": {
+    "week": "Tydzień"
+  },
+  "error": {
+    "incorrectEmail": "Niepoprawny email.",
+    "incorrectPassword": "Hasło za krótkie.",
+    "incorrectRepeatedPassword": "Hasła róźnią się od siebie.",
+    "incorrectField": "Pole niepoprawne.",
+    "termsNotChecked": "Zgoda jest obowiązkowa.",
+    "global": "Coś poszło nie tak. Spróbuj jeszcze raz.",
+    "userAlreadyExists": "Użytkownik o podanym adresie email już istnieje.",
+    "wrongPasswordOrEmail": "Niepoprawny login i/lub hasło."
   }
 }

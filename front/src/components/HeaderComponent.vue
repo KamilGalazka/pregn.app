@@ -2,10 +2,12 @@
 import axios from "axios";
 import { reactive } from "vue";
 import LocaleChanger from "@/components/LocaleChanger.vue";
+import { useStore } from "@/stores/store";
 
 const state = reactive({
   menuList: {},
 });
+const store = useStore();
 
 state.menuList = await fetchMenuList();
 
@@ -17,6 +19,12 @@ async function fetchMenuList() {
 
   return response.data.response;
 }
+
+function logoutHandler() {
+  store.setUserStatus({
+    isLogged: false,
+  });
+}
 </script>
 
 <template>
@@ -27,6 +35,14 @@ async function fetchMenuList() {
     <ul class="nav__list">
       <li v-for="item in state.menuList" :key="item" class="nav__list--item">
         <RouterLink :to="item.path">{{ item.name }}</RouterLink>
+      </li>
+      <li v-if="store.isUserLogged" @click="logoutHandler">
+        {{ $t("login.logout") }}
+      </li>
+      <li v-else>
+        <RouterLink to="/login" v-if="!store.isUserLogged">
+          {{ $t("login.header") }}
+        </RouterLink>
       </li>
     </ul>
     <LocaleChanger />
