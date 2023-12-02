@@ -34,7 +34,7 @@ function logoutHandler() {
     </RouterLink>
     <ul class="nav__list">
       <li v-for="item in state.menuList" :key="item" class="nav__list--item">
-        <RouterLink :to="item.path">{{ item.name }}</RouterLink>
+        <RouterLink :to="item.route">{{ item.name }}</RouterLink>
       </li>
       <li v-if="store.isUserLogged" @click="logoutHandler">
         {{ $t("login.logout") }}

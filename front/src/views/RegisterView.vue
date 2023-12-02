@@ -81,14 +81,9 @@ const submitHandler = async () => {
       },
     });
 
-    store.setUserStatus({
-      isLogged: true,
-      isAdmin: false,
-    });
-
     registrationSuccess.value = true;
 
-    setTimeout(() => router.push("/"), 2000);
+    setTimeout(() => router.push("/login"), 3000);
   } catch (error) {
     error.response.status === 409
       ? (isUserExists.value = true)
