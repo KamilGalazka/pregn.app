@@ -32,20 +32,33 @@ function logoutHandler() {
     <RouterLink to="/">
       <img alt="Application logo" src="@/assets/logo.webp" class="nav__logo" />
     </RouterLink>
+
     <ul class="nav__list">
       <li v-for="item in state.menuList" :key="item" class="nav__list--item">
         <RouterLink :to="item.route">{{ item.name }}</RouterLink>
       </li>
-      <li v-if="store.isUserLogged" @click="logoutHandler">
-        {{ $t("login.logout") }}
-      </li>
-      <li v-else>
-        <RouterLink to="/login" v-if="!store.isUserLogged">
-          {{ $t("login.header") }}
-        </RouterLink>
-      </li>
     </ul>
-    <LocaleChanger />
+
+    <div class="d-flex gap-3 align-items-center">
+      <div v-if="store.isUserLogged && store.isUserAdmin">
+        <RouterLink to="/admin">
+          <font-awesome-icon icon="gears" />
+        </RouterLink>
+      </div>
+      <div
+        v-if="store.isUserLogged"
+        @click="logoutHandler"
+        class="nav__logout--button"
+      >
+        <font-awesome-icon icon="right-from-bracket" />
+      </div>
+      <div v-else>
+        <RouterLink to="/login">
+          <font-awesome-icon icon="user" />
+        </RouterLink>
+      </div>
+      <LocaleChanger />
+    </div>
   </nav>
 </template>
 
@@ -53,19 +66,19 @@ function logoutHandler() {
 .nav {
   display: flex;
   align-items: center;
-  justify-content: space-around;
-  padding: 10px 0;
+  justify-content: space-between;
+  padding: 10px 0 60px;
 
   &__logo {
     width: 180px;
     height: 60px;
-    margin-left: 50px;
   }
 
   &__list {
     display: flex;
+    justify-content: flex-end;
+    gap: 40px;
     width: 60%;
-    justify-content: space-around;
     align-items: center;
     list-style: none;
 
@@ -79,6 +92,10 @@ function logoutHandler() {
         color: #727272;
       }
     }
+  }
+
+  &__logout--button {
+    cursor: pointer;
   }
 }
 </style>

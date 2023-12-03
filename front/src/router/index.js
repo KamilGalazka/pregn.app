@@ -33,6 +33,18 @@ const routes = [
         /* webpackChunkName: "stages" */ "../views/StagesOfPregnancyView.vue"
       ),
   },
+  {
+    path: "/admin",
+    name: "admin",
+    component: () =>
+      import(/* webpackChunkName: "admin" */ "../views/AdminView.vue"),
+  },
+  {
+    path: "/:pathMatch(.*)*",
+    name: "error",
+    component: () =>
+      import(/* webpackChunkName: "admin" */ "../views/ErrorView.vue"),
+  },
 ];
 
 const router = createRouter({

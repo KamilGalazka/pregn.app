@@ -37,6 +37,16 @@
     "termsNotChecked": "Zgoda jest obowiązkowa.",
     "global": "Coś poszło nie tak. Spróbuj jeszcze raz.",
     "userAlreadyExists": "Użytkownik o podanym adresie email już istnieje.",
-    "wrongPasswordOrEmail": "Niepoprawny login i/lub hasło."
+    "wrongPasswordOrEmail": "Niepoprawny login i/lub hasło.",
+    "header404": "404",
+    "info404": "Strona nie istnieje"
+  },
+  "admin": {
+    "header": "Panel administratora",
+    "userWithoutAdminPrivilege": "Strona tylko dla administratorów serwisu",
+    "menu": {
+      "mainCategoryMenu": "Kategorie główne"
+    },
+    "saveChanges": "Zapisz zmiany"
   }
 }
