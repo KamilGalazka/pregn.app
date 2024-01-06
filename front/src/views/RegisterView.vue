@@ -120,7 +120,7 @@ const submitHandler = async () => {
         required
         v-model="name"
       />
-      <div v-if="!isValidName" class="invalid-field">
+      <div v-if="!isValidName" class="invalid-field text-danger">
         {{ $t("error.incorrectField") }}
       </div>
     </div>
@@ -137,7 +137,7 @@ const submitHandler = async () => {
         required
         v-model="lastname"
       />
-      <div v-if="!isValidLastname" class="invalid-field">
+      <div v-if="!isValidLastname" class="invalid-field text-danger">
         {{ $t("error.incorrectField") }}
       </div>
     </div>
@@ -154,7 +154,7 @@ const submitHandler = async () => {
         required
         v-model="email"
       />
-      <div v-if="!isValidEmail" class="invalid-field">
+      <div v-if="!isValidEmail" class="invalid-field text-danger">
         {{ $t("error.incorrectEmail") }}
       </div>
     </div>
@@ -171,7 +171,7 @@ const submitHandler = async () => {
         required
         v-model="password"
       />
-      <div v-if="!isCorrectPassword" class="invalid-field">
+      <div v-if="!isCorrectPassword" class="invalid-field text-danger">
         {{ $t("error.incorrectPassword") }}
       </div>
     </div>
@@ -188,7 +188,7 @@ const submitHandler = async () => {
         required
         v-model="repeatedPassword"
       />
-      <div v-if="!isCorrectRepeatedPassword" class="invalid-field">
+      <div v-if="!isCorrectRepeatedPassword" class="invalid-field text-danger">
         {{ $t("error.incorrectRepeatedPassword") }}
       </div>
     </div>
@@ -206,7 +206,7 @@ const submitHandler = async () => {
           {{ $t("registration.terms") }}
         </label>
       </div>
-      <div v-if="!isTermsChecked" class="invalid-field">
+      <div v-if="!isTermsChecked" class="invalid-field text-danger">
         {{ $t("error.termsNotChecked") }}
       </div>
     </div>

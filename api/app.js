@@ -207,3 +207,21 @@ app.get('/api/navigation', async (req, res) => {
         response: queryResult.rows,
     })
 })
+
+app.get('/api/stage/:week', async (req, res) => {
+    const week = req.params.week
+    let queryResult
+
+    try {
+        queryResult = await client.query(`select *
+                                          from pregnancy_stages
+                                          where week = ${week}`)
+    } catch (error) {
+        console.log('api/stage/:week error', error)
+    }
+
+    res.status(200).json({
+        status: 'OK',
+        response: queryResult.rows[0],
+    })
+})

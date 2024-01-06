@@ -27,7 +27,13 @@
     "logout": "wyloguj się"
   },
   "stages": {
-    "week": "Tydzień"
+    "week": "Tydzień",
+    "trimester": "Trymestr",
+    "informationSectionHeader": "Informacje",
+    "comparisonSectionHeader": "Porównanie",
+    "comparisonInNumbersSectionHeader": "Dane w liczbach",
+    "comparisonInNumbersSectionSize": "Rozmiar",
+    "comparisonInNumbersSectionWeight": "Waga"
   },
   "error": {
     "incorrectEmail": "Niepoprawny email.",

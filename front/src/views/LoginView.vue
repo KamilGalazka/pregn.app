@@ -78,7 +78,7 @@ const submitHandler = async () => {
         required
         v-model="email"
       />
-      <div v-if="!isValidEmail" class="invalid-field">
+      <div v-if="!isValidEmail" class="invalid-field text-danger">
         {{ $t("error.incorrectEmail") }}
       </div>
     </div>
@@ -95,7 +95,7 @@ const submitHandler = async () => {
         required
         v-model="password"
       />
-      <div v-if="!isCorrectPassword" class="invalid-field">
+      <div v-if="!isCorrectPassword" class="invalid-field text-danger">
         {{ $t("error.incorrectPassword") }}
       </div>
     </div>

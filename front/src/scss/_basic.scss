@@ -7,6 +7,7 @@
   font-family: Poppins, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: $basic-background-color;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -25,4 +26,8 @@ h1, h2, h3, h4, h5, h6 {
 .basic-wrapper {
   margin: 0 56px;
   overflow: hidden;
+  
+  @media (max-width: 768px) {
+    margin: 0 16px;
+  }
 }
