@@ -149,7 +149,7 @@ evaluateRange(rangeStart, rangeStop);
             $t("stages.comparisonInNumbersSectionSize")
           }}</span>
           <span
-            ><strong>{{ fetalLength }} cm</strong></span
+            ><strong>{{ fetalLength }}</strong> cm</span
           >
           <img src="../assets/ruler.svg" />
         </div>
@@ -172,6 +172,7 @@ evaluateRange(rangeStart, rangeStop);
   &__information-container {
     gap: 40px;
     margin-top: 24px;
+    margin-bottom: 24px;
 
     .stage__information {
       gap: 24px;
