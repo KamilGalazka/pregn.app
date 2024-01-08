@@ -81,6 +81,7 @@ evaluateRange(rangeStart, rangeStop);
 </script>
 
 <template>
+  <h1>{{ $t("stages.header") }}</h1>
   <div
     class="stages__map-container d-flex flex-column justify-content-center align-items-center"
   >
@@ -114,7 +115,7 @@ evaluateRange(rangeStart, rangeStop);
   >
     <div class="stage__information d-flex flex-column">
       <div>
-        <h1>{{ $t("stages.week") }} {{ chosenWeek }}</h1>
+        <h3>{{ $t("stages.week") }} {{ chosenWeek }}</h3>
       </div>
       <p class="h3 text-success text-center">
         {{ $t("stages.informationSectionHeader") }}

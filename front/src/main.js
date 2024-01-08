@@ -11,6 +11,7 @@ import {
   faGears,
   faUser,
   faRightFromBracket,
+  faCalendarDay,
   fas,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
@@ -34,7 +35,15 @@ const i18n = createI18n({
   messages: { pl, en },
 });
 
-library.add(faPenToSquare, faGears, faUser, faRightFromBracket, fas, far);
+library.add(
+  faPenToSquare,
+  faGears,
+  faUser,
+  faRightFromBracket,
+  faCalendarDay,
+  fas,
+  far
+);
 
 const pinia = createPinia();
 pinia.use(piniaPluginPersistedstate);

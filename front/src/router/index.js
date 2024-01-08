@@ -14,6 +14,18 @@ const routes = [
       import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
   },
   {
+    path: "/health",
+    name: "health",
+    component: () =>
+      import(/* webpackChunkName: "health" */ "../views/HealthView.vue"),
+  },
+  {
+    path: "/layette",
+    name: "layette",
+    component: () =>
+      import(/* webpackChunkName: "layette" */ "../views/LayetteView.vue"),
+  },
+  {
     path: "/register",
     name: "register",
     component: () =>

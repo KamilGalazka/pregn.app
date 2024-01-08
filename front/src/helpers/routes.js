@@ -18,6 +18,9 @@ const routes = Object.freeze({
     changeNote: `${prefix}/api/calendar/change`,
     deleteNote: `${prefix}/api/calendar/delete`,
   },
+  article: {
+    getArticle: `${prefix}/api/article/`,
+  },
 });
 
 export default routes;

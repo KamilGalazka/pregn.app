@@ -8,6 +8,7 @@ CREATE TABLE users
     email                VARCHAR(255) UNIQUE,
     password_hash        VARCHAR(255),
     role                 VARCHAR(50),
+    refresh_token        VARCHAR(255),
     reset_password_token VARCHAR(255),
     created_at           TIMESTAMP DEFAULT NOW(),
     updated_at           TIMESTAMP DEFAULT NOW()
@@ -21,8 +22,8 @@ DROP TABLE IF EXISTS refresh_tokens;
 
 CREATE TABLE refresh_tokens
 (
-    id       SERIAL PRIMARY KEY,
-    user_id  INT REFERENCES "users" (id),
+    id            SERIAL PRIMARY KEY,
+    user_id       INT REFERENCES "users" (id),
     refresh_token VARCHAR
 );
 
@@ -36,7 +37,7 @@ CREATE TABLE calendar
     title    VARCHAR NOT NULL,
     content  VARCHAR NOT NULL,
     priority INT     NOT NULL,
-    date VARCHAR NOT NULL
+    date     VARCHAR NOT NULL
 );
 
 INSERT INTO calendar (user_id, title, content, priority, date)
@@ -360,3 +361,39 @@ VALUES (1,
         'Your baby is about the size of a small pumpkin',
         '51',
         '3.62');
+
+
+DROP TABLE IF EXISTS article;
+
+CREATE TABLE article
+(
+    id             SERIAL PRIMARY KEY,
+    category       VARCHAR,
+    title_pl       VARCHAR,
+    title_en       VARCHAR,
+    description_pl VARCHAR,
+    description_en VARCHAR,
+    image_name     VARCHAR,
+    content_pl     VARCHAR,
+    content_en     VARCHAR,
+    published      BOOLEAN DEFAULT TRUE,
+    published_date VARCHAR
+);
+
+INSERT INTO article (category, title_pl, title_en, description_pl, description_en, image_name, content_pl, content_en,
+                     published_date)
+VALUES ('health', 'Tytuł 1', 'Title 1', 'Opis 1', 'Description 1', 'article1.jpg', '<h3>zawartość1</h3>',
+        '<h3>content1</h3>',
+        '12/12/2023'),
+       ('health', 'Tytuł 2', 'Title 2', 'Opis 2', 'Description 2', 'article2.jpg', '<h3>zawartość2</h3>',
+        '<h3>content2</h3>',
+        '19/06/2023'),
+       ('layette', 'Tytuł 1', 'Title 1', 'Opis 1', 'Description 1', 'article1.jpg', '<h3>zawartość1</h3>',
+        '<h3>content1</h3>',
+        '12/12/2023'),
+       ('layette', 'Tytuł 1', 'Title 1', 'Opis 1', 'Description 1', 'article1.jpg', '<h3>zawartość1</h3>',
+        '<h3>content1</h3>',
+        '12/12/2023'),
+       ('layette', 'Tytuł 1', 'Title 1', 'Opis 1', 'Description 1', 'article1.jpg', '<h3>zawartość1</h3>',
+        '<h3>content1</h3>',
+        '12/12/2023');
