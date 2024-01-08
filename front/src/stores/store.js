@@ -10,16 +10,18 @@ export const useStore = defineStore(
     const isOpeningPageClosed = ref(false);
     const isUserLogged = ref(false);
     const isUserAdmin = ref(false);
+    const userToken = ref();
 
     function setOpeningPageAsOpened() {
       isOpeningPageClosed.value = true;
     }
 
     function setUserStatus(status) {
-      const { isLogged, isAdmin } = status;
+      const { isLogged, isAdmin, token } = status;
 
       isUserLogged.value = isLogged;
       isUserAdmin.value = isAdmin;
+      userToken.value = token;
     }
 
     return {
@@ -27,6 +29,7 @@ export const useStore = defineStore(
       isOpeningPageClosed,
       isUserLogged,
       isUserAdmin,
+      userToken,
       setOpeningPageAsOpened,
       setUserStatus,
     };

@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from "vue";
 import axios from "axios";
+import routes from "@/helpers/routes";
 
 let informationAboutWeek = ref("");
 let imageHeader = ref("");
@@ -19,7 +20,7 @@ const showStage = async (week) => {
 
   const responseData = await axios({
     method: "GET",
-    url: `http://localhost:3000/api/stage/${week}`,
+    url: `${routes.stage.getStage}/${week}`,
   });
 
   const { response } = responseData.data;

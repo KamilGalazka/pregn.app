@@ -5,6 +5,7 @@ import upperFirstLetter from "../helpers/upperFirstLetter";
 import { useStore } from "@/stores/store";
 import { ref } from "vue";
 import router from "@/router";
+import routes from "@/helpers/routes";
 
 let email = ref();
 let password = ref();
@@ -33,7 +34,7 @@ const submitHandler = async () => {
   try {
     const response = await axios({
       method: "POST",
-      url: "http://localhost:3000/api/user/login",
+      url: routes.user.login,
       data: {
         email: email.value,
         password: password.value,
@@ -43,6 +44,7 @@ const submitHandler = async () => {
     store.setUserStatus({
       isLogged: true,
       isAdmin: response.data.role === "admin",
+      token: response.data.token,
     });
 
     await router.push("/");

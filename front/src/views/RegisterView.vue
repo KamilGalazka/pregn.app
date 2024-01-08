@@ -5,6 +5,7 @@ import upperFirstLetter from "../helpers/upperFirstLetter";
 import { useStore } from "@/stores/store";
 import { ref } from "vue";
 import router from "@/router";
+import routes from "@/helpers/routes";
 
 let email = ref();
 let password = ref();
@@ -72,7 +73,7 @@ const submitHandler = async () => {
   try {
     await axios({
       method: "POST",
-      url: "http://localhost:3000/api/user/create",
+      url: routes.user.register,
       data: {
         name: name.value,
         lastname: lastname.value,

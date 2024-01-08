@@ -3,6 +3,8 @@ import axios from "axios";
 import { reactive } from "vue";
 import LocaleChanger from "@/components/LocaleChanger.vue";
 import { useStore } from "@/stores/store";
+import routes from "@/helpers/routes";
+import router from "@/router";
 
 const state = reactive({
   menuList: {},
@@ -14,16 +16,27 @@ state.menuList = await fetchMenuList();
 async function fetchMenuList() {
   const response = await axios({
     method: "GET",
-    url: "http://localhost:3000/api/navigation",
+    url: routes.navigation.getNavigation,
   });
 
-  return response.data.response;
+  return response.data.response; //todo language check
 }
 
 function logoutHandler() {
   store.setUserStatus({
     isLogged: false,
+    isAdmin: false,
+    token: "",
   });
+
+  fetchMenuList();
+  router.push("/");
+}
+
+function checkIfCategoryCanBeDisplayed(category) {
+  if (!category.published) return false;
+
+  return !(category.user_only && !store.isUserLogged);
 }
 </script>
 
@@ -34,8 +47,17 @@ function logoutHandler() {
     </RouterLink>
 
     <ul class="nav__list">
-      <li v-for="item in state.menuList" :key="item" class="nav__list--item">
-        <RouterLink :to="item.route">{{ item.name }}</RouterLink>
+      <li
+        v-for="category in state.menuList"
+        :key="category"
+        class="nav__list--item"
+      >
+        <RouterLink
+          v-if="checkIfCategoryCanBeDisplayed(category)"
+          :to="category.route"
+        >
+          {{ category.name_pl }}
+        </RouterLink>
       </li>
     </ul>
 

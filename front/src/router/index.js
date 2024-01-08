@@ -40,6 +40,12 @@ const routes = [
       import(/* webpackChunkName: "admin" */ "../views/AdminView.vue"),
   },
   {
+    path: "/calendar",
+    name: "calendar",
+    component: () =>
+      import(/* webpackChunkName: "calendar" */ "../views/CalendarView.vue"),
+  },
+  {
     path: "/:pathMatch(.*)*",
     name: "error",
     component: () =>

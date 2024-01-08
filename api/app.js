@@ -160,9 +160,9 @@ app.post('/api/user/refresh', async (req, res) => {
     const {id} = decodedRefreshToken
 
     try {
-        queryResult = await client.query(`select refresh_token
+        queryResult = await client.query(`select rt.refresh_token
                                           from users
-                                          where id = ${id}`)
+                                                   join refresh_tokens as rt on ${id} = rt.user_id`)
     } catch (error) {
         console.log('/api/user/refresh error', error)
     }
@@ -197,7 +197,7 @@ app.get('/api/navigation', async (req, res) => {
     let queryResult
 
     try {
-        queryResult = await client.query('select name, route from navigation')
+        queryResult = await client.query('select * from navigation')
     } catch (error) {
         console.log('/api/navigation error', error)
     }
@@ -223,5 +223,106 @@ app.get('/api/stage/:week', async (req, res) => {
     res.status(200).json({
         status: 'OK',
         response: queryResult.rows[0],
+    })
+})
+
+async function verifyToken(req, res, next) {
+    const bearerToken = req.headers.authorization
+    let tokenData
+
+    const token = bearerToken.split(' ')[1]
+
+    try {
+        tokenData = await jwt.verify(token, process.env.TOKEN_SECRET)
+    } catch (error) {
+        console.log('/api/user/refresh verify error', error)
+
+        return res.status(401).json({
+            status: 'invalid token',
+        })
+    }
+
+    res.locals.tokenData = tokenData
+    next()
+}
+
+app.get('/api/calendar', verifyToken, async (req, res) => {
+    let queryResult
+
+    const {id: userId} = res.locals.tokenData
+
+    try {
+        queryResult = await client.query(`select c.id, c.title, c.content, c.priority, c.date
+                                          from users
+                                                   join calendar as c on ${userId} = c.user_id`)
+    } catch (error) {
+        console.log('/api/calendar get data error', error)
+    }
+
+    res.status(200).json({
+        status: 'OK',
+        response: queryResult.rows,
+    })
+})
+
+app.post('/api/calendar/add', verifyToken, async (req, res) => {
+    const {id: userId} = res.locals.tokenData
+    const {title, content, priority, date} = req.body
+
+    try {
+        await client.query(`insert into calendar (user_id, title, content, priority, date)
+                            values (${userId}, '${title}', '${content}', ${priority}, '${date}');`)
+    } catch (error) {
+        console.log('/api/calendar/add data error', error)
+
+        return res.status(404).json({
+            status: "NOK note not added",
+        })
+    }
+
+    res.status(201).json({
+        status: 'OK',
+    })
+})
+
+app.put('/api/calendar/change', verifyToken, async (req, res) => {
+    let queryResult
+    const {noteId, title, content, priority, date} = req.body
+
+    try {
+        queryResult = await client.query(`update calendar
+                                          set (title, content, priority, date) = ('${title}', '${content}', ${priority}, '${date}')
+                                          where calendar.id = ${noteId} returning *`)
+    } catch (error) {
+        console.log('/api/calendar/change data error', error)
+
+        return res.status(404).json({
+            status: "NOK note not updated",
+        })
+    }
+
+    res.status(200).json({
+        status: 'OK',
+        response: queryResult.rows[0],
+    })
+})
+
+app.delete('/api/calendar/delete', verifyToken, async (req, res) => {
+    const {noteId} = req.body
+
+    try {
+        await client.query(`delete
+                            from calendar
+                            where calendar.id = ${noteId}`)
+    } catch (error) {
+        console.log('/api/calendar/delete data error', error)
+
+        return res.status(404).json({
+            status: "NOK note not deleted",
+        })
+    }
+
+    res.status(200).json({
+        status: 'OK',
     })
 })

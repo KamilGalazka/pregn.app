@@ -54,5 +54,16 @@
       "mainCategoryMenu": "Kategorie główne"
     },
     "saveChanges": "Zapisz zmiany"
+  },
+  "calendar": {
+    "header": "Kalendarz",
+    "hint": "Dodaj do kalendarza daty o których warto pamiętać",
+    "addToCalendarButton": "Dodaj do kalendarza",
+    "changeNoteButton": "Edytuj wpis",
+    "deleteNoteButton": "Usuń wpis",
+    "prioritySelectPlaceholder": "Określ ważność wpisu",
+    "priorityLow": "Niski",
+    "priorityMedium": "Średni",
+    "priorityHigh": "Wysoki"
   }
 }
