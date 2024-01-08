@@ -28,10 +28,6 @@ const getUserCalendar = async () => {
   }
 };
 
-const editNote = (note) => {
-  console.log("edit", note);
-};
-
 getUserCalendar();
 
 // import { useDate } from "vuetify";
@@ -97,12 +93,6 @@ getUserCalendar();
                   aria-expanded="true"
                   :aria-controls="`note${index}-collapse${index}`"
                 >
-                  <button
-                    @click="editNote(note)"
-                    style="width: 50px"
-                    data-bs-toggle="modal"
-                    data-bs-target="#exampleModal"
-                  ></button>
                   <span>
                     <strong>{{ note.date }}</strong> {{ note.title }}
                   </span>
