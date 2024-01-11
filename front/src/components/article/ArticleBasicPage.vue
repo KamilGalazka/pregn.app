@@ -35,7 +35,7 @@ getArticles();
       :key="article"
       class="col-12 col-sm-6 col-lg-4 col-xl-4 gap-2 d-flex justify-content-center mb-5"
     >
-      <BasicCard :card="article" />
+      <BasicCard :card="article" :article-category="props.articleCategory" />
     </div>
   </div>
 </template>

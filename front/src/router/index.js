@@ -20,6 +20,15 @@ const routes = [
       import(/* webpackChunkName: "health" */ "../views/HealthView.vue"),
   },
   {
+    path: "/:articleCategory/:id",
+    name: "article",
+    component: () =>
+      import(
+        /* webpackChunkName: "article" */ "../components/article/ArticleCardPage.vue"
+      ),
+    props: true,
+  },
+  {
     path: "/layette",
     name: "layette",
     component: () =>

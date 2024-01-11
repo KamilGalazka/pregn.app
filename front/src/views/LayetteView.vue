@@ -1,5 +1,5 @@
 <script setup>
-import BasicPage from "@/components/article/BasicPage.vue";
+import ArticleBasicPage from "@/components/article/ArticleBasicPage.vue";
 
 const category = "layette";
 </script>
@@ -7,7 +7,7 @@ const category = "layette";
 <template>
   <h1>{{ $t("article.layetteCategoryHeader") }}</h1>
   <div class="container-fluid">
-    <BasicPage :article-category="category" />
+    <ArticleBasicPage :article-category="category" />
   </div>
 </template>
 

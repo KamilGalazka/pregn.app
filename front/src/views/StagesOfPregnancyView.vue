@@ -2,11 +2,11 @@
 import { ref } from "vue";
 import axios from "axios";
 import routes from "@/helpers/routes";
+import { useI18n } from "vue-i18n";
 
-let informationAboutWeek = ref("");
-let imageHeader = ref("");
-let fetalLength = ref("");
-let fetalWeight = ref("");
+const { locale: currentLanguage } = useI18n({ useScope: "global" });
+
+let fetalInformation = ref({});
 let chosenWeek = ref(1);
 let chosenTrimester = ref(1);
 let rangeStart = ref(1);
@@ -25,10 +25,7 @@ const showStage = async (week) => {
 
   const { response } = responseData.data;
 
-  informationAboutWeek.value = response.description_pl; //todo change to current language
-  imageHeader.value = response.image_header_pl; // todo change to current language
-  fetalLength.value = response.length_cm;
-  fetalWeight.value = response.weight_kg;
+  fetalInformation.value = response;
 };
 
 const evaluateRange = (rangeStart, rangeStop) => {
@@ -121,7 +118,11 @@ evaluateRange(rangeStart, rangeStop);
         {{ $t("stages.informationSectionHeader") }}
       </p>
       <p>
-        {{ informationAboutWeek }}
+        {{
+          currentLanguage === "pl"
+            ? fetalInformation.description_pl
+            : fetalInformation.description_en
+        }}
       </p>
     </div>
     <div class="d-flex flex-column align-items-center gap-4">
@@ -131,7 +132,18 @@ evaluateRange(rangeStart, rangeStop);
       >
         {{ $t("stages.comparisonSectionHeader") }}
       </p>
-      <span class="h6" v-if="imageHeader">{{ imageHeader }}</span>
+      <span
+        class="h6"
+        v-if="currentLanguage === 'pl' && fetalInformation.image_header_pl"
+      >
+        {{ fetalInformation.image_header_pl }}
+      </span>
+      <span
+        class="h6"
+        v-else-if="currentLanguage === 'en' && fetalInformation.image_header_en"
+      >
+        {{ fetalInformation.image_header_en }}
+      </span>
       <img
         class="stage__information--fruit-image"
         :src="getStageImage(chosenWeek)"
@@ -151,7 +163,7 @@ evaluateRange(rangeStart, rangeStop);
             $t("stages.comparisonInNumbersSectionSize")
           }}</span>
           <span
-            ><strong>{{ fetalLength }}</strong> cm</span
+            ><strong>{{ fetalInformation.length_cm }}</strong> cm</span
           >
           <img src="../assets/ruler.svg" />
         </div>
@@ -160,7 +172,7 @@ evaluateRange(rangeStart, rangeStop);
             $t("stages.comparisonInNumbersSectionWeight")
           }}</span>
           <span
-            ><strong>{{ fetalWeight }}</strong> kg</span
+            ><strong>{{ fetalInformation.weight_kg }}</strong> kg</span
           >
           <img src="../assets/weight-scale.svg" />
         </div>
@@ -218,6 +230,7 @@ evaluateRange(rangeStart, rangeStop);
         height: 30px;
         border-radius: 50px;
         cursor: pointer;
+        text-align: center;
 
         &:hover {
           background: antiquewhite;

@@ -1,18 +1,33 @@
 <script setup>
 import { defineProps } from "vue";
 import BasicButton from "@/components/BasicButton.vue";
+import router from "@/router";
+import { useI18n } from "vue-i18n";
 
-const props = defineProps({ card: Object });
+const { locale: currentLanguage } = useI18n({ useScope: "global" });
+
+const props = defineProps({
+  card: Object,
+  articleCategory: String,
+});
+
 const getImage = (imageName) => {
   let imageSrc;
 
   try {
-    imageSrc = require(`@/assets/health/${imageName}`);
+    imageSrc = require(`@/assets/articles/${imageName}`);
   } catch (error) {
     imageSrc = "";
   }
 
   return imageSrc;
+};
+
+const openArticle = (articleId) => {
+  router.push({
+    name: "article",
+    params: { id: articleId, articleCategory: props.articleCategory },
+  });
 };
 </script>
 
@@ -26,16 +41,27 @@ const getImage = (imageName) => {
       />
     </div>
     <div class="card-body text-left">
-      <p class="card-title">{{ props.card.title_pl }}</p>
+      <p class="card-title">
+        {{
+          currentLanguage === "pl" ? props.card.title_pl : props.card.title_en
+        }}
+      </p>
       <p class="card-date d-flex">
         <font-awesome-icon icon="calendar-days" />
         <span>{{ props.card.published_date }}</span>
       </p>
       <p class="card-text mb-3">
-        {{ props.card.description_pl }}
+        {{
+          currentLanguage === "pl"
+            ? props.card.description_pl
+            : props.card.description_en
+        }}
       </p>
       <div class="d-flex justify-content-center">
-        <BasicButton :button-text="$t('basic.openArticleButton')" />
+        <BasicButton
+          :button-text="$t('basic.openArticleButton')"
+          @click="openArticle(props.card.id)"
+        />
       </div>
     </div>
   </div>
@@ -48,6 +74,8 @@ const getImage = (imageName) => {
   }
 
   &-img {
+    height: 300px;
+    object-fit: cover;
     transition: transform 0.1s linear;
 
     &:hover {

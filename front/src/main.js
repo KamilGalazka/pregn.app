@@ -33,6 +33,7 @@ const i18n = createI18n({
   locale: "pl",
   fallbackLocale: "pl",
   messages: { pl, en },
+  legacy: false,
 });
 
 library.add(

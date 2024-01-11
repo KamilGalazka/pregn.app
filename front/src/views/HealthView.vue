@@ -1,5 +1,5 @@
 <script setup>
-import BasicPage from "@/components/article/BasicPage.vue";
+import ArticleBasicPage from "@/components/article/ArticleBasicPage.vue";
 
 const category = "health";
 </script>
@@ -7,7 +7,7 @@ const category = "health";
 <template>
   <h1>{{ $t("article.healthCategoryHeader") }}</h1>
   <div class="container-fluid">
-    <BasicPage :article-category="category" />
+    <ArticleBasicPage :article-category="category" />
   </div>
 </template>
 
