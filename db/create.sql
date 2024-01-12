@@ -15,7 +15,8 @@ CREATE TABLE users
 );
 
 INSERT INTO users (name, lastname, email, password_hash, role)
-VALUES ('Test', 'Testowy', 'admin@admin.com', '$2b$10$j1yPpwKj7Qilx6ycaHf2A.U.sNOK6lcnU61KyEGmkFuDx9uugiTXK', 'admin');
+VALUES ('Jan', 'Nowak', 'admin@admin.com', '$2b$10$j1yPpwKj7Qilx6ycaHf2A.U.sNOK6lcnU61KyEGmkFuDx9uugiTXK', 'admin'),
+       ('Test', 'Cypress', 'cypress@test.pl', '$2b$10$B/v2BYW1LI7ZOszgLY8ake59cQSfCx9yPZOJMZyT4RECZlBVpjloe', 'user');
 
 
 DROP TABLE IF EXISTS refresh_tokens;

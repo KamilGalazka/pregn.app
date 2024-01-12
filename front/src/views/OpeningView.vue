@@ -22,7 +22,11 @@ const handleClose = () => store.setOpeningPageAsOpened();
             Lorem ipsum dolor sit amet, consectetur adipiscing elit.
           </p>
         </div>
-        <BasicButton @click="handleClose" button-text="Przejdź dalej" />
+        <BasicButton
+          @click="handleClose"
+          button-text="Przejdź dalej"
+          data-cy="opening-page__button"
+        />
       </div>
     </div>
   </div>

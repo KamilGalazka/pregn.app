@@ -105,7 +105,11 @@ const submitHandler = async () => {
       {{ $t("error.userAlreadyExists") }}
     </div>
 
-    <div v-if="registrationSuccess" class="alert alert-success">
+    <div
+      v-if="registrationSuccess"
+      class="alert alert-success"
+      data-cy="registration-successful-alert"
+    >
       {{ $t("registration.success") }}
     </div>
 
@@ -116,6 +120,7 @@ const submitHandler = async () => {
       <input
         type="text"
         class="form-control"
+        data-cy="input-name"
         id="inputName"
         :placeholder="$t('basic.namePlaceholder')"
         required
@@ -133,6 +138,7 @@ const submitHandler = async () => {
       <input
         type="text"
         class="form-control"
+        data-cy="input-lastname"
         id="inputLastname"
         :placeholder="$t('basic.lastnamePlaceholder')"
         required
@@ -150,6 +156,7 @@ const submitHandler = async () => {
       <input
         type="email"
         class="form-control"
+        data-cy="input-email"
         id="inputEmail"
         :placeholder="$t('basic.emailPlaceholder')"
         required
@@ -167,6 +174,7 @@ const submitHandler = async () => {
       <input
         type="password"
         class="form-control"
+        data-cy="input-password"
         id="inputPassword"
         :placeholder="$t('basic.passwordPlaceholder')"
         required
@@ -184,6 +192,7 @@ const submitHandler = async () => {
       <input
         type="password"
         class="form-control"
+        data-cy="input-repeat-password"
         id="inputRepeatPassword"
         :placeholder="$t('basic.repeatPasswordPlaceholder')"
         required
@@ -197,8 +206,9 @@ const submitHandler = async () => {
     <div>
       <div class="d-flex align-items-center gap-1">
         <input
-          class="form-check-input"
           type="checkbox"
+          class="form-check-input"
+          data-cy="checkbox-terms"
           id="inputTerms"
           required
           v-model="terms"
@@ -213,7 +223,10 @@ const submitHandler = async () => {
     </div>
 
     <div id="submitButton" class="col-6">
-      <BasicButton :buttonText="$t('registration.button')" />
+      <BasicButton
+        :buttonText="$t('registration.button')"
+        data-cy="register-button"
+      />
     </div>
   </form>
 </template>

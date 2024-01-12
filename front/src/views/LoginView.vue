@@ -75,12 +75,17 @@ const submitHandler = async () => {
       <input
         type="email"
         class="form-control"
+        data-cy="input-email"
         id="inputEmail"
         :placeholder="$t('basic.emailPlaceholder')"
         required
         v-model="email"
       />
-      <div v-if="!isValidEmail" class="invalid-field text-danger">
+      <div
+        v-if="!isValidEmail"
+        class="invalid-field text-danger"
+        data-cy="invalid-field__email"
+      >
         {{ $t("error.incorrectEmail") }}
       </div>
     </div>
@@ -92,19 +97,26 @@ const submitHandler = async () => {
       <input
         type="password"
         class="form-control"
+        data-cy="input-password"
         id="inputPassword"
         :placeholder="$t('basic.passwordPlaceholder')"
         required
         v-model="password"
       />
-      <div v-if="!isCorrectPassword" class="invalid-field text-danger">
+      <div
+        v-if="!isCorrectPassword"
+        class="invalid-field text-danger"
+        data-cy="invalid-field__password"
+      >
         {{ $t("error.incorrectPassword") }}
       </div>
     </div>
     <div>
-      <RouterLink to="/register">{{ $t("login.noAccount") }}</RouterLink>
+      <RouterLink to="/register" data-cy="register-account__button">{{
+        $t("login.noAccount")
+      }}</RouterLink>
     </div>
-    <div id="submitButton" class="col-6">
+    <div id="submitButton" class="col-6" data-cy="login-button">
       <BasicButton :buttonText="$t('login.button')" />
     </div>
   </form>

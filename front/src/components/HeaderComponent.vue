@@ -71,11 +71,12 @@ function checkIfCategoryCanBeDisplayed(category) {
         v-if="store.isUserLogged"
         @click="logoutHandler"
         class="nav__logout--button"
+        data-cy="header__logout-button"
       >
         <font-awesome-icon icon="right-from-bracket" />
       </div>
       <div v-else>
-        <RouterLink to="/login">
+        <RouterLink to="/login" data-cy="header__login-button">
           <font-awesome-icon icon="user" />
         </RouterLink>
       </div>
