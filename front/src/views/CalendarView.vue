@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import axios from "axios";
 import CalendarForm from "@/components/calendar/CalendarForm.vue";
 import { useStore } from "@/stores/store";
@@ -28,24 +28,9 @@ const getUserCalendar = async () => {
   }
 };
 
-getUserCalendar();
-
-// import { useDate } from "vuetify";
-// const adapter = useDate();
-// import { createVuetify } from "vuetify";
-// import DateFnsAdapter from "@date-io/date-fns";
-// import en from "../locales/en.json";
-// import pl from "../locales/pl.json";
-//
-// createVuetify({
-//   date: {
-//     adapter: DateFnsAdapter,
-//     locale: {
-//       en: en,
-//       pl: pl,
-//     },
-//   },
-// });
+onMounted(() => {
+  getUserCalendar();
+});
 </script>
 
 <template>
@@ -58,6 +43,7 @@ getUserCalendar();
         class="row d-flex justify-content-center flex-lg-row flex-column align-items-center align-items-xxl-start"
       >
         <div class="col-10 col-xxl-6 mb-5">
+          <h3 class="mb-7">{{ $t("calendar.addToCalendarSectionHeader") }}</h3>
           <v-container required>
             <v-row justify="space-around">
               <v-date-picker
@@ -78,6 +64,12 @@ getUserCalendar();
           />
         </div>
         <div class="col-10 col-xxl-6">
+          <h3 class="mt-10 mb-7">
+            {{ $t("calendar.addedNotesSectionHeader") }}
+          </h3>
+          <p v-if="!savedNotes.length">
+            {{ $t("calendar.emptyCalendarText") }}
+          </p>
           <div class="accordion" id="notes">
             <div
               v-for="(note, index) in savedNotes"
