@@ -24,10 +24,14 @@ describe("Register tests", function () {
         const {
             name,
             lastname,
-            email,
+            new_account_email_prefix,
+            new_account_email_postfix,
             password,
             headerText,
         } = this.dataFromFixtures
+
+        const randomNumber = register.generateRandomNumber(999, 999999)
+        const newEmailAddress = `${new_account_email_prefix}${randomNumber}${new_account_email_postfix}`
 
         cy.visit('/')
         openingPage.clickOpeningPageButton()
@@ -36,7 +40,7 @@ describe("Register tests", function () {
 
         register.typeName(name)
         register.typeLastname(lastname)
-        register.typeEmail(email)
+        register.typeEmail(newEmailAddress)
         register.typePassword(password)
         register.typeRepeatPassword(password)
         register.checkCheckboxWithTerms()
@@ -45,7 +49,7 @@ describe("Register tests", function () {
             .should('be.visible')
 
         cy.wait(5000)
-        login.loginToAccount(email, password)
+        login.loginToAccount(newEmailAddress, password)
         mainPage.getHeader()
             .should('contain', headerText)
     })

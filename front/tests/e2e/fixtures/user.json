@@ -2,5 +2,7 @@
   "name": "Test",
   "lastname": "Cypress",
   "email": "cypress@test.pl",
+  "new_account_email_prefix": "cypress",
+  "new_account_email_postfix": "@test.pl",
   "password": "cypress123"
 }
