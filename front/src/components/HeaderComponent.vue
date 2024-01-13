@@ -62,6 +62,11 @@ function checkIfCategoryCanBeDisplayed(category) {
     </ul>
 
     <div class="d-flex gap-3 align-items-center">
+      <div v-if="store.isUserLogged">
+        <RouterLink to="/settings">
+          <font-awesome-icon icon="sliders" />
+        </RouterLink>
+      </div>
       <div v-if="store.isUserLogged && store.isUserAdmin">
         <RouterLink to="/admin">
           <font-awesome-icon icon="gears" />

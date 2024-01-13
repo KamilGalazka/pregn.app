@@ -49,6 +49,63 @@ app.listen(port, () => {
     console.log('Server started...')
 })
 
+async function verifyToken(req, res, next) {
+    const bearerToken = req.headers.authorization
+    let tokenData
+
+    const token = bearerToken.split(' ')[1]
+
+    try {
+        tokenData = await jwt.verify(token, process.env.TOKEN_SECRET)
+    } catch (error) {
+        console.log('/api/user/refresh verify error', error)
+
+        return res.status(401).json({
+            status: 'invalid token',
+        })
+    }
+
+    res.locals.tokenData = tokenData
+    next()
+}
+
+async function verifyPassword(req, res, next) {
+    let queryResult
+    const {id} = res.locals.tokenData
+    const {oldPassword} = req.body
+
+    try {
+        queryResult = await client.query(`select password_hash
+                                          from users
+                                          where id = '${id}'`)
+    } catch (error) {
+        console.log('verifyPassword error', error)
+    }
+
+    if (!queryResult.rowCount) {
+        return res.status(401).json({
+            status: "User doesn't exist",
+        })
+    }
+
+    const hashedPassword = queryResult.rows[0].password_hash
+    let bcryptResult
+
+    try {
+        bcryptResult = await bcrypt.compare(oldPassword, hashedPassword)
+    } catch (error) {
+        console.log('/api/user/login bcrypt error', error)
+    }
+
+    if (!bcryptResult) {
+        return res.status(401).json({
+            status: 'Wrong password or email',
+        })
+    }
+
+    next()
+}
+
 app.post('/api/user/create', async (req, res) => {
     const {
         name,
@@ -86,6 +143,105 @@ app.post('/api/user/create', async (req, res) => {
     }
 })
 
+app.get('/api/user/info', verifyToken, async (req, res) => {
+    let queryResult
+
+    const {id: userId} = res.locals.tokenData
+
+    try {
+        queryResult = await client.query(`select name, lastname, email, role
+                                          from users
+                                          where id = ${userId}`)
+    } catch (error) {
+        console.log('/api/user/info error', error)
+    }
+
+    res.status(200).json({
+        status: 'OK',
+        response: queryResult.rows[0],
+    })
+})
+
+app.patch('/api/user/change/data', verifyToken, async (req, res) => {
+    let queryResult
+    const {name, lastname, email} = req.body
+
+    const {id: userId} = res.locals.tokenData
+
+    try {
+        queryResult = await client.query(`update users
+                                          set (name, lastname, email, updated_at) = ('${name}', '${lastname}', '${email}', NOW())
+                                          where id = ${userId} returning *`)
+    } catch (error) {
+        console.log('/api/user/change/data error', error)
+    }
+
+    res.status(200).json({
+        status: 'OK',
+        response: queryResult.rows,
+    })
+})
+
+app.patch('/api/user/change/password', verifyToken, verifyPassword, async (req, res) => {
+    const {newPassword} = req.body
+    const {id: userId} = res.locals.tokenData
+
+    let bcryptResult
+
+    try {
+        bcryptResult = await bcrypt.hash(newPassword, saltRounds)
+    } catch (error) {
+        console.log('/api/user/create bcrypt error', error)
+    }
+
+    if (!bcryptResult)
+        res.status(500)
+
+    try {
+        await client.query(`update users
+                                          set (password_hash, updated_at) = ('${bcryptResult}', NOW())
+                                          where id = ${userId}`)
+    } catch (error) {
+        console.log('/api/user/change/password update error', error)
+    }
+
+    res.status(200).json({
+        status: 'OK',
+    })
+})
+
+app.delete('/api/user/delete', verifyToken, async (req, res) => {
+    const {id: userId} = res.locals.tokenData
+
+    try {
+        await client.query(`delete
+                            from users
+                            where id = ${userId}`)
+    } catch (error) {
+        console.log('api/user/delete from users error', error)
+    }
+
+    try {
+        await client.query(`delete
+                            from refresh_tokens
+                            where user_id = ${userId}`)
+    } catch (error) {
+        console.log('api/user/delete from refresh_tokens error', error)
+    }
+
+    try {
+        await client.query(`delete
+                            from calendar
+                            where user_id = ${userId}`)
+    } catch (error) {
+        console.log('api/user/delete from calendar error', error)
+    }
+
+    res.status(200).json({
+        status: 'OK',
+    })
+})
+
 app.post('/api/user/login', async (req, res) => {
     const {
         email,
@@ -119,7 +275,7 @@ app.post('/api/user/login', async (req, res) => {
     }
 
     if (!bcryptResult) {
-        res.status(401).json({
+        return res.status(401).json({
             status: 'Wrong password or email',
         })
     }
@@ -226,45 +382,6 @@ app.get('/api/stage/:week', async (req, res) => {
     })
 })
 
-async function verifyToken(req, res, next) {
-    const bearerToken = req.headers.authorization
-    let tokenData
-
-    const token = bearerToken.split(' ')[1]
-
-    try {
-        tokenData = await jwt.verify(token, process.env.TOKEN_SECRET)
-    } catch (error) {
-        console.log('/api/user/refresh verify error', error)
-
-        return res.status(401).json({
-            status: 'invalid token',
-        })
-    }
-
-    res.locals.tokenData = tokenData
-    next()
-}
-
-app.get('/api/calendar', verifyToken, async (req, res) => {
-    let queryResult
-
-    const {id: userId} = res.locals.tokenData
-
-    try {
-        queryResult = await client.query(`select c.id, c.title, c.content, c.priority, c.date
-                                          from users
-                                                   join calendar as c on ${userId} = c.user_id`)
-    } catch (error) {
-        console.log('/api/calendar get data error', error)
-    }
-
-    res.status(200).json({
-        status: 'OK',
-        response: queryResult.rows,
-    })
-})
-
 app.post('/api/calendar/add', verifyToken, async (req, res) => {
     const {id: userId} = res.locals.tokenData
     const {title, content, priority, date} = req.body
@@ -282,6 +399,25 @@ app.post('/api/calendar/add', verifyToken, async (req, res) => {
 
     res.status(201).json({
         status: 'OK',
+    })
+})
+
+app.get('/api/calendar/get', verifyToken, async (req, res) => {
+    let queryResult
+
+    const {id: userId} = res.locals.tokenData
+
+    try {
+        queryResult = await client.query(`select c.id, c.title, c.content, c.priority, c.date
+                                          from users
+                                                   join calendar as c on ${userId} = c.user_id`)
+    } catch (error) {
+        console.log('/api/calendar get data error', error)
+    }
+
+    res.status(200).json({
+        status: 'OK',
+        response: queryResult.rows,
     })
 })
 

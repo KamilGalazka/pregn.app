@@ -12,6 +12,7 @@ import {
   faUser,
   faRightFromBracket,
   faCalendarDay,
+  faSliders,
   fas,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
@@ -42,6 +43,7 @@ library.add(
   faUser,
   faRightFromBracket,
   faCalendarDay,
+  faSliders,
   fas,
   far
 );

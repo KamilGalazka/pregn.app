@@ -10,6 +10,12 @@
     "passwordPlaceholder": "Podaj hasło",
     "repeatPassword": "powtórz hasło",
     "repeatPasswordPlaceholder": "Podaj ponownie hasło",
+    "oldPassword": "Aktualne hasło",
+    "oldPasswordPlaceholder": "Podaj hasło",
+    "newPassword": "Nowe hasło",
+    "newPasswordPlaceholder": "Podaj hasło",
+    "repeatNewPassword": "Powtórz nowe hasło",
+    "repeatNewPasswordPlaceholder": "Podaj ponownie hasło",
     "openArticleButton": "Przeczytaj"
   },
   "banner": {
@@ -24,7 +30,8 @@
   "login": {
     "header": "Logowanie",
     "button": "Zaloguj się",
-    "noAccount": "Nie masz konta? Zarejestruj się już teraz.",
+    "noAccountPrefix": "Nie masz konta?",
+    "noAccountPostfix": "Zarejestruj się już teraz.",
     "logout": "wyloguj się"
   },
   "stages": {
@@ -60,7 +67,10 @@
   "calendar": {
     "header": "Kalendarz",
     "hint": "Dodaj do kalendarza daty o których warto pamiętać",
+    "addToCalendarSectionHeader": "Dodaj nową datę",
     "addToCalendarButton": "Dodaj do kalendarza",
+    "addedNotesSectionHeader": "Twoje dodane daty",
+    "emptyCalendarText": "Nie masz dodanych żadnych wydarzeń do kalendarza. Najlepiej zrób to teraz, żeby o niczym nie zapomnieć.",
     "changeNoteButton": "Edytuj wpis",
     "deleteNoteButton": "Usuń wpis",
     "prioritySelectPlaceholder": "Określ ważność wpisu",
@@ -71,5 +81,15 @@
   "article": {
     "healthCategoryHeader": "Zdrowie",
     "layetteCategoryHeader": "Wyprawka"
+  },
+  "settings": {
+    "header": "Ustawienia",
+    "changeUserDataButton": "Zmień dane",
+    "dataChangedText": "Dane zostały zmienione",
+    "deleteAccountHeader": "Usunięcie konta",
+    "deleteAccountInformation": "Jeśli chcesz na stałe usunąć konto z serwisu kliknij w poniższy\n        przycisk. Proces jest nieodwracalny.",
+    "deleteAccountButton": "Usuń konto",
+    "dataSectionHeader": "Podstawowe dane",
+    "passwordSectionHeader": "Hasło"
   }
 }
