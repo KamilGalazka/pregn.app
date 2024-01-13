@@ -6,30 +6,25 @@ import { useStore } from "@/stores/store";
 import { ref } from "vue";
 import router from "@/router";
 import routes from "@/helpers/routes";
+import { validateEmail, validatePassword } from "@/composables/useValidation";
 
-let email = ref();
-let password = ref();
-let isValidEmail = ref(true);
-let isCorrectPassword = ref(true);
-let isLoginSuccess = ref(true);
-let isPasswordWrong = ref(false);
+const email = ref();
+const password = ref();
+const isValidEmail = ref(true);
+const isCorrectPassword = ref(true);
+const isLoginSuccess = ref(true);
+const isPasswordWrong = ref(false);
 const store = useStore();
 
-const validateEmail = () => {
-  isValidEmail.value = /^\S+@\S+\.\S+$/.test(email.value);
-};
+const checkIfAllFieldsAreValid = () => {
+  isValidEmail.value = validateEmail(email.value);
+  isCorrectPassword.value = validatePassword(password.value);
 
-const validatePassword = () => {
-  if (password.value)
-    isCorrectPassword.value = password.value.length >= store.passwordLength;
-  else isCorrectPassword.value = false;
+  return isValidEmail.value && isCorrectPassword.value;
 };
 
 const submitHandler = async () => {
-  validateEmail();
-  validatePassword();
-
-  if (!isValidEmail.value || !isCorrectPassword.value) return;
+  if (!checkIfAllFieldsAreValid()) return;
 
   try {
     const response = await axios({
@@ -57,7 +52,7 @@ const submitHandler = async () => {
 </script>
 
 <template>
-  <form class="row g-3" @submit.prevent="submitHandler" novalidate>
+  <form class="row" @submit.prevent="submitHandler" novalidate>
     <h1>{{ $t("login.header") }}</h1>
 
     <div v-if="!isLoginSuccess" class="alert alert-danger">
@@ -112,8 +107,9 @@ const submitHandler = async () => {
       </div>
     </div>
     <div>
+      <span style="margin-right: 4px">{{ $t("login.noAccountPrefix") }}</span>
       <RouterLink to="/register" data-cy="register-account__button">{{
-        $t("login.noAccount")
+        $t("login.noAccountPostfix")
       }}</RouterLink>
     </div>
     <div id="submitButton" class="col-6" data-cy="login-button">
@@ -124,17 +120,9 @@ const submitHandler = async () => {
 
 <style scoped lang="scss">
 form {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
   gap: 20px;
   max-width: 500px;
-  margin: 100px auto 0;
-  text-align: left;
+  margin: 50px auto 0;
   padding: 20px;
-}
-
-#submitButton {
-  padding-top: 2em;
 }
 </style>

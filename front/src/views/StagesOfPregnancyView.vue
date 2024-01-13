@@ -1,17 +1,17 @@
 <script setup>
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import axios from "axios";
 import routes from "@/helpers/routes";
 import { useI18n } from "vue-i18n";
 
 const { locale: currentLanguage } = useI18n({ useScope: "global" });
 
-let fetalInformation = ref({});
-let chosenWeek = ref(1);
-let chosenTrimester = ref(1);
-let rangeStart = ref(1);
-let rangeStop = ref(13);
-let weeksArray = ref([]);
+const fetalInformation = ref({});
+const chosenWeek = ref(1);
+const chosenTrimester = ref(1);
+const rangeStart = ref(1);
+const rangeStop = ref(13);
+const weeksArray = ref([]);
 const firstComparisonToFruitWeek = 4;
 const firstComparisonInNumbersWeek = 8;
 
@@ -73,8 +73,10 @@ const getStageImage = (week) => {
   return imageSrc;
 };
 
-showStage(1);
-evaluateRange(rangeStart, rangeStop);
+onMounted(() => {
+  showStage(1);
+  evaluateRange(rangeStart, rangeStop);
+});
 </script>
 
 <template>

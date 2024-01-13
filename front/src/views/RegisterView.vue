@@ -2,73 +2,55 @@
 import axios from "axios";
 import BasicButton from "@/components/BasicButton.vue";
 import upperFirstLetter from "../helpers/upperFirstLetter";
-import { useStore } from "@/stores/store";
 import { ref } from "vue";
 import router from "@/router";
 import routes from "@/helpers/routes";
+import "@/composables/useValidation";
+import * as useValidation from "@/composables/useValidation";
 
-let email = ref();
-let password = ref();
-let name = ref();
-let lastname = ref();
-let repeatedPassword = ref();
-let terms = ref();
-let registrationSuccess = ref(false);
-let isValidName = ref(true);
-let isValidLastname = ref(true);
-let isValidEmail = ref(true);
-let isCorrectPassword = ref(true);
-let isCorrectRepeatedPassword = ref(true);
-let isTermsChecked = ref(true);
-let isRegistrationSuccess = ref(true);
-let isUserExists = ref(false);
-const store = useStore();
-
-const validateEmail = () => {
-  isValidEmail.value = /^\S+@\S+\.\S+$/.test(email.value);
-};
-
-const validatePassword = () => {
-  if (password.value)
-    isCorrectPassword.value = password.value.length >= store.passwordLength;
-  else isCorrectPassword.value = false;
-};
-
-const validateRepeatedPassword = () => {
-  if (repeatedPassword.value && repeatedPassword.value === password.value)
-    isCorrectRepeatedPassword.value = true;
-  else isCorrectRepeatedPassword.value = false;
-};
-
-const validateNameAndLastname = () => {
-  isValidName.value = name.value?.length || false;
-  isValidLastname.value = lastname.value?.length || false;
-};
-
-const validateTerms = () => {
-  isTermsChecked.value = terms?.value || false;
-};
+const email = ref();
+const password = ref();
+const name = ref();
+const lastname = ref();
+const repeatedPassword = ref();
+const terms = ref();
+const registrationSuccess = ref(false);
+const isValidName = ref(true);
+const isValidLastname = ref(true);
+const isValidEmail = ref(true);
+const isCorrectPassword = ref(true);
+const isCorrectRepeatedPassword = ref(true);
+const isTermsChecked = ref(true);
+const isRegistrationSuccess = ref(true);
+const isUserExists = ref(false);
 
 const validateDataHandler = () => {
-  validateNameAndLastname();
-  validateEmail();
-  validatePassword();
-  validateRepeatedPassword();
-  validateTerms();
+  isValidEmail.value = useValidation.validateEmail(email.value);
+  isCorrectPassword.value = useValidation.validatePassword(password.value);
+  isCorrectRepeatedPassword.value = useValidation.validateRepeatedPassword(
+    password.value,
+    repeatedPassword.value
+  );
+  isValidName.value = useValidation.validateName(name.value);
+  isValidLastname.value = useValidation.validateLastname(lastname.value);
+  isTermsChecked.value = useValidation.validateTerms(terms.value);
+};
+
+const checkIfAllFieldsAreValid = () => {
+  validateDataHandler();
+
+  return (
+    isValidName.value &&
+    isValidLastname.value &&
+    isValidEmail.value &&
+    isCorrectPassword.value &&
+    isCorrectRepeatedPassword.value &&
+    isTermsChecked.value
+  );
 };
 
 const submitHandler = async () => {
-  validateDataHandler();
-
-  if (
-    !isValidName.value ||
-    !isValidLastname.value ||
-    !isValidEmail.value ||
-    !isCorrectPassword.value ||
-    !isCorrectRepeatedPassword.value ||
-    !isTermsChecked.value
-  )
-    return;
+  if (!checkIfAllFieldsAreValid()) return;
 
   try {
     await axios({
@@ -94,7 +76,7 @@ const submitHandler = async () => {
 </script>
 
 <template>
-  <form class="row g-3" @submit.prevent="submitHandler" novalidate>
+  <form class="row" @submit.prevent="submitHandler" novalidate>
     <h1>{{ $t("registration.header") }}</h1>
 
     <div v-if="!isRegistrationSuccess" class="alert alert-danger">
@@ -233,17 +215,9 @@ const submitHandler = async () => {
 
 <style scoped lang="scss">
 form {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
   gap: 20px;
   max-width: 500px;
-  margin: 100px auto 0;
-  text-align: left;
+  margin: 50px auto 0;
   padding: 20px;
-}
-
-#submitButton {
-  padding-top: 2em;
 }
 </style>
