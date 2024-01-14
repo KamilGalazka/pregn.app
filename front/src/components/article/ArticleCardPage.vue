@@ -20,7 +20,7 @@ const getArticle = async () => {
   try {
     response = await axios({
       method: "GET",
-      url: `${routes.article.getArticle}${props.articleCategory}/${props.id}`,
+      url: `${routes.article}/${props.articleCategory}/${props.id}`,
     });
   } catch (error) {
     console.log(error);

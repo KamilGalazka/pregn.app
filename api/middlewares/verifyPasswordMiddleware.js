@@ -1,4 +1,5 @@
-const bcrypt = require("bcrypt");
+const {client} = require('../services/dbService')
+const {comparePasswords, errorHandling} = require('../utils/helpers')
 
 async function verifyPassword(req, res, next) {
     let queryResult
@@ -10,7 +11,7 @@ async function verifyPassword(req, res, next) {
                                           from users
                                           where id = '${id}'`)
     } catch (error) {
-        console.log('verifyPassword error', error)
+        errorHandling('verifyPassword', '', error)
     }
 
     if (!queryResult.rowCount) {
@@ -20,13 +21,8 @@ async function verifyPassword(req, res, next) {
     }
 
     const hashedPassword = queryResult.rows[0].password_hash
-    let bcryptResult
 
-    try {
-        bcryptResult = await bcrypt.compare(oldPassword, hashedPassword)
-    } catch (error) {
-        console.log('/api/user/login bcrypt error', error)
-    }
+    const bcryptResult = await comparePasswords(oldPassword, hashedPassword)
 
     if (!bcryptResult) {
         return res.status(401).json({

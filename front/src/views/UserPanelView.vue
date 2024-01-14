@@ -33,7 +33,7 @@ const getUserData = async () => {
   try {
     response = await axios({
       method: "GET",
-      url: routes.user.getUserData,
+      url: routes.user.path,
       headers: {
         Authorization: `Bearer ${store.userToken}`,
       },
@@ -66,7 +66,7 @@ const deleteAccount = async () => {
   try {
     response = await axios({
       method: "DELETE",
-      url: routes.user.delete,
+      url: routes.user.path,
       headers: {
         Authorization: `Bearer ${store.userToken}`,
       },

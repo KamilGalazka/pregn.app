@@ -55,7 +55,7 @@ const submitHandler = async () => {
   try {
     await axios({
       method: "POST",
-      url: routes.user.register,
+      url: routes.user.path,
       data: {
         name: name.value,
         lastname: lastname.value,

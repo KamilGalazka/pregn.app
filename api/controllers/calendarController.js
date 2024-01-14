@@ -1,4 +1,5 @@
 const {client} = require('../services/dbService')
+const {errorHandling} = require("../utils/helpers");
 
 const addNewNoteToCalendar = async (req, res) => {
     const {id: userId} = res.locals.tokenData
@@ -8,7 +9,7 @@ const addNewNoteToCalendar = async (req, res) => {
         await client.query(`insert into calendar (user_id, title, content, priority, date)
                             values (${userId}, '${title}', '${content}', ${priority}, '${date}');`)
     } catch (error) {
-        console.log('/api/calendar/add data error', error)
+        errorHandling('addNewNoteToCalendar', '/api/calendar', error)
 
         return res.status(404).json({
             status: "NOK note not added",
@@ -30,7 +31,7 @@ const getAllUserNotes = async (req, res) => {
                                           from calendar
                                           where user_id = ${userId}`)
     } catch (error) {
-        console.log('/api/calendar get data error', error)
+        errorHandling('getAllUserNotes', '/api/calendar', error)
     }
 
     res.status(200).json({
@@ -48,7 +49,7 @@ const changeNote = async (req, res) => {
                                           set (title, content, priority, date) = ('${title}', '${content}', ${priority}, '${date}')
                                           where id = ${noteId} returning *`)
     } catch (error) {
-        console.log('/api/calendar/change data error', error)
+        errorHandling('changeNote', '/api/calendar', error)
 
         return res.status(404).json({
             status: "NOK note not updated",
@@ -69,7 +70,7 @@ const deleteNote = async (req, res) => {
                             from calendar
                             where id = ${noteId}`)
     } catch (error) {
-        console.log('/api/calendar/delete data error', error)
+        errorHandling('deleteNote', '/api/calendar', error)
 
         return res.status(404).json({
             status: "NOK note not deleted",

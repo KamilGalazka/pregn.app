@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+const {errorHandling} = require("../utils/helpers");
 
 async function verifyToken(req, res, next) {
     const bearerToken = req.headers.authorization
@@ -9,7 +10,7 @@ async function verifyToken(req, res, next) {
     try {
         tokenData = await jwt.verify(token, process.env.TOKEN_SECRET)
     } catch (error) {
-        console.log('/api/user/refresh verify error', error)
+        errorHandling('verifyToken', '', error)
 
         return res.status(401).json({
             status: 'invalid token',

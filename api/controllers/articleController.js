@@ -1,4 +1,5 @@
 const {client} = require('../services/dbService')
+const {errorHandling} = require("../utils/helpers");
 
 const getAllArticles = async (req, res) => {
     const categoryType = req.params.type
@@ -6,17 +7,17 @@ const getAllArticles = async (req, res) => {
 
     try {
         queryResult = await client.query(`select id,
-                                          title_pl,
-                                          title_en,
-                                          description_pl,
-                                          description_en,
-                                          image_name,
-                                          published,
-                                          published_date
-                                   from article
-                                   where article.category = '${categoryType}'`)
+                                                 title_pl,
+                                                 title_en,
+                                                 description_pl,
+                                                 description_en,
+                                                 image_name,
+                                                 published,
+                                                 published_date
+                                          from article
+                                          where article.category = '${categoryType}'`)
     } catch (error) {
-        console.log('/api/article error', error)
+        errorHandling('getAllArticles', '/api/article/:type', error)
     }
 
     res.status(200).json({
@@ -35,7 +36,7 @@ const getArticle = async (req, res) => {
                                           where article.category = '${categoryType}'
                                             and article.id = ${id}`)
     } catch (error) {
-        console.log('/api/article/:type/:id error', error)
+        errorHandling('getArticle', '/api/article/:type/:id', error)
     }
 
     res.status(200).json({

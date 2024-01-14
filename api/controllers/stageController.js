@@ -1,4 +1,5 @@
 const {client} = require('../services/dbService')
+const {errorHandling} = require("../utils/helpers");
 
 const getStage = async (req, res) => {
     const week = req.params.week
@@ -9,7 +10,7 @@ const getStage = async (req, res) => {
                                           from pregnancy_stages
                                           where week = ${week}`)
     } catch (error) {
-        console.log('api/stage/:week error', error)
+        errorHandling('getStage', 'api/stage/:week', error)
     }
 
     res.status(200).json({

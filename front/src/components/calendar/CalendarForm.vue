@@ -46,7 +46,7 @@ const addToCalender = async () => {
   try {
     await axios({
       method: "POST",
-      url: routes.calendar.addNote,
+      url: routes.calendar,
       headers: {
         Authorization: `Bearer ${store.userToken}`,
       },
@@ -69,7 +69,7 @@ const editNote = async () => {
   try {
     await axios({
       method: "PUT",
-      url: routes.calendar.changeNote,
+      url: routes.calendar,
       headers: {
         Authorization: `Bearer ${store.userToken}`,
       },
@@ -92,7 +92,7 @@ const deleteNote = async () => {
   try {
     await axios({
       method: "DELETE",
-      url: routes.calendar.deleteNote,
+      url: routes.calendar,
       headers: {
         Authorization: `Bearer ${store.userToken}`,
       },

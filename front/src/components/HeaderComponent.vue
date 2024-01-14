@@ -16,7 +16,7 @@ state.menuList = await fetchMenuList();
 async function fetchMenuList() {
   const response = await axios({
     method: "GET",
-    url: routes.navigation.getNavigation,
+    url: routes.navigation,
   });
 
   return response.data.response; //todo language check

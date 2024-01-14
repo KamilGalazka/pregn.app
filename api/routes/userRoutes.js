@@ -6,12 +6,10 @@ const {verifyPassword} = require('../middlewares/verifyPasswordMiddleware')
 const router = express.Router()
 
 router
-    .route('/api/user/create')
+    .route('/api/user')
     .post(userController.createNewAccount)
-
-router
-    .route('/api/user/info')
     .get(verifyToken, userController.getUserInformation)
+    .delete(verifyToken, userController.deleteUserAccount)
 
 router
     .route('/api/user/change/data')
@@ -22,15 +20,11 @@ router
     .patch(verifyToken, verifyPassword, userController.changeUserPassword)
 
 router
-    .route('/api/user/delete')
-    .delete(verifyToken, userController.deleteUserAccount)
-
-router
     .route('/api/user/login')
     .post(userController.loginToAccount)
 
 router
-    .route('/api/user/create')
+    .route('/api/user/refresh')
     .post(userController.refreshUserToken)
 
 module.exports = router

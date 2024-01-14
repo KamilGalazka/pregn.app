@@ -20,7 +20,7 @@ const showStage = async (week) => {
 
   const responseData = await axios({
     method: "GET",
-    url: `${routes.stage.getStage}/${week}`,
+    url: `${routes.stage}/${week}`,
   });
 
   const { response } = responseData.data;

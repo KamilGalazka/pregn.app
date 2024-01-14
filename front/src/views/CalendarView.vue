@@ -16,7 +16,7 @@ const getUserCalendar = async () => {
   try {
     response = await axios({
       method: "GET",
-      url: routes.calendar.getAllNotes,
+      url: routes.calendar,
       headers: {
         Authorization: `Bearer ${store.userToken}`,
       },

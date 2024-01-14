@@ -1,8 +1,6 @@
 const {client} = require('../services/dbService')
-const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-
-const saltRounds = 10
+const {hashPassword, comparePasswords, errorHandling} = require('../utils/helpers')
 
 const createNewAccount = async (req, res) => {
     const {
@@ -11,23 +9,18 @@ const createNewAccount = async (req, res) => {
         email,
         password,
     } = req.body
-    let bcryptResult
     let queryResult
 
-    try {
-        bcryptResult = await bcrypt.hash(password, saltRounds)
-    } catch (error) {
-        console.log('/api/user/create bcrypt error', error)
-    }
+    const hashedPassword = await hashPassword(password)
 
-    if (!bcryptResult)
+    if (!hashedPassword)
         res.status(500)
 
     try {
         queryResult = await client.query(`insert into users (name, lastname, email, password_hash, role)
-                                          values ('${name}', '${lastname}', '${email}', '${bcryptResult}', 'user')`)
+                                          values ('${name}', '${lastname}', '${email}', '${hashedPassword}', 'user')`)
     } catch (error) {
-        console.log('/api/user/create query error', error)
+        errorHandling('createNewAccount', '/api/user', error)
     }
 
     if (queryResult) {
@@ -51,7 +44,7 @@ const getUserInformation = async (req, res) => {
                                           from users
                                           where id = ${userId}`)
     } catch (error) {
-        console.log('/api/user/info error', error)
+        errorHandling('getUserInformation', '/api/user', error)
     }
 
     res.status(200).json({
@@ -71,7 +64,7 @@ const changeUserData = async (req, res) => {
                                           set (name, lastname, email, updated_at) = ('${name}', '${lastname}', '${email}', NOW())
                                           where id = ${userId} returning *`)
     } catch (error) {
-        console.log('/api/user/change/data error', error)
+        errorHandling('changeUserData', '/api/user/change/data', error)
     }
 
     res.status(200).json({
@@ -84,23 +77,17 @@ const changeUserPassword = async (req, res) => {
     const {newPassword} = req.body
     const {id: userId} = res.locals.tokenData
 
-    let bcryptResult
+    const hashedPassword = await hashPassword(newPassword)
 
-    try {
-        bcryptResult = await bcrypt.hash(newPassword, saltRounds)
-    } catch (error) {
-        console.log('/api/user/create bcrypt error', error)
-    }
-
-    if (!bcryptResult)
+    if (!hashedPassword)
         res.status(500)
 
     try {
         await client.query(`update users
-                                          set (password_hash, updated_at) = ('${bcryptResult}', NOW())
-                                          where id = ${userId}`)
+                            set (password_hash, updated_at) = ('${hashedPassword}', NOW())
+                            where id = ${userId}`)
     } catch (error) {
-        console.log('/api/user/change/password update error', error)
+        errorHandling('changeUserPassword', '/api/user/change/password', error)
     }
 
     res.status(200).json({
@@ -116,7 +103,7 @@ const deleteUserAccount = async (req, res) => {
                             from users
                             where id = ${userId}`)
     } catch (error) {
-        console.log('api/user/delete from users error', error)
+        errorHandling('deleteUserAccount', '/api/user', error)
     }
 
     try {
@@ -124,7 +111,7 @@ const deleteUserAccount = async (req, res) => {
                             from refresh_tokens
                             where user_id = ${userId}`)
     } catch (error) {
-        console.log('api/user/delete from refresh_tokens error', error)
+        errorHandling('deleteUserAccount', '/api/user', error)
     }
 
     try {
@@ -132,7 +119,7 @@ const deleteUserAccount = async (req, res) => {
                             from calendar
                             where user_id = ${userId}`)
     } catch (error) {
-        console.log('api/user/delete from calendar error', error)
+        errorHandling('deleteUserAccount', '/api/user', error)
     }
 
     res.status(200).json({
@@ -152,7 +139,7 @@ const loginToAccount = async (req, res) => {
                                           from users
                                           where email = '${email}'`)
     } catch (error) {
-        console.log('/api/user/login error', error)
+        errorHandling('loginToAccount', '/api/user/login', error)
     }
 
     if (!queryResult.rowCount) {
@@ -164,13 +151,8 @@ const loginToAccount = async (req, res) => {
     const hashedPassword = queryResult.rows[0].password_hash
     const userRole = queryResult.rows[0].role
     const userId = queryResult.rows[0].id
-    let bcryptResult
 
-    try {
-        bcryptResult = await bcrypt.compare(password, hashedPassword)
-    } catch (error) {
-        console.log('/api/user/login bcrypt error', error)
-    }
+    const bcryptResult = await comparePasswords(password, hashedPassword)
 
     if (!bcryptResult) {
         return res.status(401).json({
@@ -186,7 +168,7 @@ const loginToAccount = async (req, res) => {
                       set refresh_token='${refreshToken}'
                       where email = '${email}'`)
     } catch (error) {
-        console.log('/api/user/login save refresh_token to db error', error)
+        errorHandling('loginToAccount', '/api/user/login', error)
     }
 
     res.cookie('JWT', accessToken, {
@@ -218,7 +200,7 @@ const refreshUserToken = async (req, res) => {
                                           from users
                                                    join refresh_tokens as rt on ${id} = rt.user_id`)
     } catch (error) {
-        console.log('/api/user/refresh error', error)
+        errorHandling('refreshUserToken', '/api/user/refresh', error)
     }
 
     if (!queryResult || refreshToken !== queryResult.rows[0].refresh_token) return res.status(403)
@@ -226,7 +208,7 @@ const refreshUserToken = async (req, res) => {
     try {
         isRefreshTokenValid = await jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET)
     } catch (error) {
-        console.log('/api/user/refresh verify error', error)
+        errorHandling('refreshUserToken', '/api/user/refresh', error)
     }
 
     if (!isRefreshTokenValid) return res.status(403)
@@ -234,7 +216,7 @@ const refreshUserToken = async (req, res) => {
     try {
         newAccessToken = await jwt.sign({id: id}, process.env.TOKEN_SECRET, {expiresIn: 86400})
     } catch (error) {
-        console.log('/api/user/refresh sign error', error)
+        errorHandling('refreshUserToken', '/api/user/refresh', error)
     }
 
     if (!newAccessToken) return res.status(403)
