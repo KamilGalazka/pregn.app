@@ -54,6 +54,12 @@ const fillValueForEditForm = () => {
   lastname.value = userData.value.lastname;
 };
 
+const clearChangePasswordForm = () => {
+  newPassword.value = "";
+  oldPassword.value = "";
+  repeatedNewPassword.value = "";
+};
+
 const deleteAccount = async () => {
   let response;
 
@@ -120,6 +126,7 @@ const changeUserPassword = async () => {
     });
 
     changeDataSuccess.value = true;
+    clearChangePasswordForm();
   } catch (error) {
     console.log(error);
   }
