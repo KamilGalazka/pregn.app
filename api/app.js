@@ -4,7 +4,7 @@ const cors = require('cors')
 const bodyParser = require('body-parser')
 const cookieParser = require("cookie-parser")
 
-const {connectToDatabase} = require('./services/dbService')
+const {connectToDatabase, client} = require('./services/dbService')
 
 const articleRouter = require('./routes/articleRoutes')
 const calendarRouter = require('./routes/calendarRoutes')
