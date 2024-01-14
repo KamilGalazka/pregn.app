@@ -3,7 +3,7 @@
 <template>
   <div class="error-page col-4">
     <h1 class="error-page__header">{{ $t("error.header404") }}</h1>
-    <p class="error-page__info">{{ $t("error.info404") }}</p>
+    <p class="error-page__info text-center">{{ $t("error.info404") }}</p>
   </div>
 </template>
 
