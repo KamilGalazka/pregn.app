@@ -23,7 +23,7 @@ const routes = Object.freeze({
     deleteNote: `${prefix}/api/calendar/delete`,
   },
   article: {
-    getArticle: `${prefix}/api/article`,
+    getArticle: `${prefix}/api/article/`,
   },
 });
 
