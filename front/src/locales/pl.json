@@ -76,7 +76,9 @@
     "prioritySelectPlaceholder": "Określ ważność wpisu",
     "priorityLow": "Niski",
     "priorityMedium": "Średni",
-    "priorityHigh": "Wysoki"
+    "priorityHigh": "Wysoki",
+    "noteDate": "Data: ",
+    "noteTitle": "Temat: "
   },
   "article": {
     "healthCategoryHeader": "Zdrowie",
