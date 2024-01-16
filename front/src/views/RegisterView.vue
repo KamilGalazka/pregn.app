@@ -96,90 +96,99 @@ const submitHandler = async () => {
     </div>
 
     <div>
-      <label for="inputName" class="form-label">{{
-        upperFirstLetter($t("basic.name"))
-      }}</label>
-      <input
-        type="text"
-        class="form-control"
-        data-cy="input-name"
-        id="inputName"
-        :placeholder="$t('basic.namePlaceholder')"
-        required
-        v-model="name"
-      />
+      <div class="form-floating mb-3">
+        <input
+          type="text"
+          class="form-control"
+          data-cy="input-name"
+          id="inputName"
+          :placeholder="$t('basic.namePlaceholder')"
+          required
+          v-model="name"
+        />
+        <label for="inputName">{{ upperFirstLetter($t("basic.name")) }}</label>
+      </div>
       <div v-if="!isValidName" class="invalid-field text-danger">
         {{ $t("error.incorrectField") }}
       </div>
     </div>
 
     <div>
-      <label for="inputLastname" class="form-label">{{
-        upperFirstLetter($t("basic.lastname"))
-      }}</label>
-      <input
-        type="text"
-        class="form-control"
-        data-cy="input-lastname"
-        id="inputLastname"
-        :placeholder="$t('basic.lastnamePlaceholder')"
-        required
-        v-model="lastname"
-      />
+      <div class="form-floating mb-3">
+        <input
+          type="text"
+          class="form-control"
+          data-cy="input-lastname"
+          id="inputLastname"
+          :placeholder="$t('basic.lastnamePlaceholder')"
+          required
+          v-model="lastname"
+        />
+        <label for="inputLastname">{{
+          upperFirstLetter($t("basic.lastname"))
+        }}</label>
+      </div>
+
       <div v-if="!isValidLastname" class="invalid-field text-danger">
         {{ $t("error.incorrectField") }}
       </div>
     </div>
 
     <div>
-      <label for="inputEmail" class="form-label">{{
-        upperFirstLetter($t("basic.email"))
-      }}</label>
-      <input
-        type="email"
-        class="form-control"
-        data-cy="input-email"
-        id="inputEmail"
-        :placeholder="$t('basic.emailPlaceholder')"
-        required
-        v-model="email"
-      />
+      <div class="form-floating mb-3">
+        <input
+          type="email"
+          class="form-control"
+          data-cy="input-email"
+          id="inputEmail"
+          :placeholder="$t('basic.emailPlaceholder')"
+          required
+          v-model="email"
+        />
+        <label for="inputEmail">{{
+          upperFirstLetter($t("basic.email"))
+        }}</label>
+      </div>
       <div v-if="!isValidEmail" class="invalid-field text-danger">
         {{ $t("error.incorrectEmail") }}
       </div>
     </div>
 
     <div>
-      <label for="inputPassword" class="form-label">{{
-        upperFirstLetter($t("basic.password"))
-      }}</label>
-      <input
-        type="password"
-        class="form-control"
-        data-cy="input-password"
-        id="inputPassword"
-        :placeholder="$t('basic.passwordPlaceholder')"
-        required
-        v-model="password"
-      />
+      <div class="form-floating mb-3">
+        <input
+          type="password"
+          class="form-control"
+          data-cy="input-password"
+          id="inputPassword"
+          :placeholder="$t('basic.passwordPlaceholder')"
+          required
+          v-model="password"
+        />
+        <label for="inputPassword">{{
+          upperFirstLetter($t("basic.password"))
+        }}</label>
+      </div>
       <div v-if="!isCorrectPassword" class="invalid-field text-danger">
         {{ $t("error.incorrectPassword") }}
       </div>
     </div>
 
     <div>
-      <label for="inputRepeatPassword" class="form-label">{{
-        upperFirstLetter($t("basic.repeatPassword"))
-      }}</label>
-      <input
-        type="password"
-        class="form-control"
-        data-cy="input-repeat-password"
-        id="inputRepeatPassword"
-        :placeholder="$t('basic.repeatPasswordPlaceholder')"
-        required
-        v-model="repeatedPassword"
-      />
+      <div class="form-floating mb-3">
+        <input
+          type="password"
+          class="form-control"
+          data-cy="input-repeat-password"
+          id="inputRepeatPassword"
+          :placeholder="$t('basic.repeatPasswordPlaceholder')"
+          required
+          v-model="repeatedPassword"
+        />
+        <label for="inputRepeatPassword">{{
+          upperFirstLetter($t("basic.repeatPassword"))
+        }}</label>
+      </div>
       <div v-if="!isCorrectRepeatedPassword" class="invalid-field text-danger">
         {{ $t("error.incorrectRepeatedPassword") }}
       </div>

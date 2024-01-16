@@ -64,18 +64,20 @@ const submitHandler = async () => {
     </div>
 
     <div>
-      <label for="inputEmail" class="form-label">{{
-        upperFirstLetter($t("basic.email"))
-      }}</label>
-      <input
-        type="email"
-        class="form-control"
-        data-cy="input-email"
-        id="inputEmail"
-        :placeholder="$t('basic.emailPlaceholder')"
-        required
-        v-model="email"
-      />
+      <div class="form-floating mb-3">
+        <input
+          type="email"
+          class="form-control"
+          data-cy="input-email"
+          id="inputEmail"
+          :placeholder="$t('basic.emailPlaceholder')"
+          required
+          v-model="email"
+        />
+        <label for="inputEmail">{{
+          upperFirstLetter($t("basic.email"))
+        }}</label>
+      </div>
       <div
         v-if="!isValidEmail"
         class="invalid-field text-danger"
@@ -86,18 +88,20 @@ const submitHandler = async () => {
     </div>
 
     <div>
-      <label for="inputPassword" class="form-label">{{
-        upperFirstLetter($t("basic.password"))
-      }}</label>
-      <input
-        type="password"
-        class="form-control"
-        data-cy="input-password"
-        id="inputPassword"
-        :placeholder="$t('basic.passwordPlaceholder')"
-        required
-        v-model="password"
-      />
+      <div class="form-floating mb-3">
+        <input
+          type="password"
+          class="form-control"
+          data-cy="input-password"
+          id="inputPassword"
+          :placeholder="$t('basic.passwordPlaceholder')"
+          required
+          v-model="password"
+        />
+        <label for="inputPassword">{{
+          upperFirstLetter($t("basic.password"))
+        }}</label>
+      </div>
       <div
         v-if="!isCorrectPassword"
         class="invalid-field text-danger"
