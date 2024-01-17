@@ -14,6 +14,7 @@ const isValidEmail = ref(true);
 const isCorrectPassword = ref(true);
 const isLoginSuccess = ref(true);
 const isPasswordWrong = ref(false);
+const isPasswordVisible = ref(false);
 const store = useStore();
 
 const checkIfAllFieldsAreValid = () => {
@@ -49,6 +50,12 @@ const submitHandler = async () => {
       : (isLoginSuccess.value = false);
   }
 };
+
+const showPassword = () => {
+  if (!password.value) return;
+
+  isPasswordVisible.value = !isPasswordVisible.value;
+};
 </script>
 
 <template>
@@ -64,10 +71,10 @@ const submitHandler = async () => {
     </div>
 
     <div>
-      <div class="form-floating mb-3">
+      <div class="form-floating">
         <input
           type="email"
-          class="form-control"
+          :class="`form-control ${isValidEmail ? '' : 'is-invalid'}`"
           data-cy="input-email"
           id="inputEmail"
           :placeholder="$t('basic.emailPlaceholder')"
@@ -77,21 +84,17 @@ const submitHandler = async () => {
         <label for="inputEmail">{{
           upperFirstLetter($t("basic.email"))
         }}</label>
-      </div>
-      <div
-        v-if="!isValidEmail"
-        class="invalid-field text-danger"
-        data-cy="invalid-field__email"
-      >
-        {{ $t("error.incorrectEmail") }}
+        <div class="invalid-feedback" data-cy="invalid-field__email">
+          {{ $t("error.incorrectEmail") }}
+        </div>
       </div>
     </div>
 
-    <div>
-      <div class="form-floating mb-3">
+    <div class="input-group has-validation">
+      <div class="form-floating form-floating__password">
         <input
-          type="password"
-          class="form-control"
+          :type="isPasswordVisible ? 'text' : 'password'"
+          :class="`form-control ${isCorrectPassword ? '' : 'is-invalid'}`"
           data-cy="input-password"
           id="inputPassword"
           :placeholder="$t('basic.passwordPlaceholder')"
@@ -101,15 +104,19 @@ const submitHandler = async () => {
         <label for="inputPassword">{{
           upperFirstLetter($t("basic.password"))
         }}</label>
+        <div class="invalid-feedback" data-cy="invalid-field__password">
+          {{ $t("error.incorrectPassword") }}
+        </div>
       </div>
-      <div
-        v-if="!isCorrectPassword"
-        class="invalid-field text-danger"
-        data-cy="invalid-field__password"
+      <span
+        :class="`input-group-text ${isCorrectPassword ? '' : 'is-invalid'}`"
+        @click="showPassword"
       >
-        {{ $t("error.incorrectPassword") }}
-      </div>
+        <font-awesome-icon v-if="!isPasswordVisible" icon="eye" />
+        <font-awesome-icon v-else icon="eye-slash" />
+      </span>
     </div>
+
     <div>
       <span style="margin-right: 4px">{{ $t("login.noAccountPrefix") }}</span>
       <RouterLink to="/register" data-cy="register-account__button">{{
@@ -128,5 +135,26 @@ form {
   max-width: 500px;
   margin: 50px auto 0;
   padding: 20px;
+
+  #inputPassword {
+    border-right: none;
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+  }
+
+  .form-floating__password {
+    width: calc(100% - 44px);
+  }
+
+  .input-group-text {
+    max-height: 58px;
+    background: none;
+    border-left: none;
+    cursor: pointer;
+
+    &.is-invalid {
+      border-color: #dc3545;
+    }
+  }
 }
 </style>

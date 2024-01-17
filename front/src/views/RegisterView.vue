@@ -23,6 +23,8 @@ const isCorrectRepeatedPassword = ref(true);
 const isTermsChecked = ref(true);
 const isRegistrationSuccess = ref(true);
 const isUserExists = ref(false);
+const isPasswordVisible = ref(false);
+const isRepeatedPasswordVisible = ref(false);
 
 const validateDataHandler = () => {
   isValidEmail.value = useValidation.validateEmail(email.value);
@@ -73,6 +75,18 @@ const submitHandler = async () => {
       : (isRegistrationSuccess.value = false);
   }
 };
+
+const showPassword = () => {
+  if (!password.value) return;
+
+  isPasswordVisible.value = !isPasswordVisible.value;
+};
+
+const showRepeatedPassword = () => {
+  if (!repeatedPassword.value) return;
+
+  isRepeatedPasswordVisible.value = !isRepeatedPasswordVisible.value;
+};
 </script>
 
 <template>
@@ -96,10 +110,10 @@ const submitHandler = async () => {
     </div>
 
     <div>
-      <div class="form-floating mb-3">
+      <div class="form-floating">
         <input
           type="text"
-          class="form-control"
+          :class="`form-control ${isValidName ? '' : 'is-invalid'}`"
           data-cy="input-name"
           id="inputName"
           :placeholder="$t('basic.namePlaceholder')"
@@ -107,17 +121,17 @@ const submitHandler = async () => {
           v-model="name"
         />
         <label for="inputName">{{ upperFirstLetter($t("basic.name")) }}</label>
-      </div>
-      <div v-if="!isValidName" class="invalid-field text-danger">
-        {{ $t("error.incorrectField") }}
+        <div class="invalid-feedback" data-cy="invalid-field__name">
+          {{ $t("error.incorrectField") }}
+        </div>
       </div>
     </div>
 
     <div>
-      <div class="form-floating mb-3">
+      <div class="form-floating">
         <input
           type="text"
-          class="form-control"
+          :class="`form-control ${isValidLastname ? '' : 'is-invalid'}`"
           data-cy="input-lastname"
           id="inputLastname"
           :placeholder="$t('basic.lastnamePlaceholder')"
@@ -127,18 +141,17 @@ const submitHandler = async () => {
         <label for="inputLastname">{{
           upperFirstLetter($t("basic.lastname"))
         }}</label>
-      </div>
-
-      <div v-if="!isValidLastname" class="invalid-field text-danger">
-        {{ $t("error.incorrectField") }}
+        <div class="invalid-feedback" data-cy="invalid-field__lastname">
+          {{ $t("error.incorrectField") }}
+        </div>
       </div>
     </div>
 
     <div>
-      <div class="form-floating mb-3">
+      <div class="form-floating">
         <input
           type="email"
-          class="form-control"
+          :class="`form-control ${isValidEmail ? '' : 'is-invalid'}`"
           data-cy="input-email"
           id="inputEmail"
           :placeholder="$t('basic.emailPlaceholder')"
@@ -148,17 +161,17 @@ const submitHandler = async () => {
         <label for="inputEmail">{{
           upperFirstLetter($t("basic.email"))
         }}</label>
-      </div>
-      <div v-if="!isValidEmail" class="invalid-field text-danger">
-        {{ $t("error.incorrectEmail") }}
+        <div class="invalid-feedback" data-cy="invalid-field__email">
+          {{ $t("error.incorrectEmail") }}
+        </div>
       </div>
     </div>
 
-    <div>
-      <div class="form-floating mb-3">
+    <div class="input-group has-validation">
+      <div class="form-floating form-floating__password">
         <input
-          type="password"
-          class="form-control"
+          :type="isPasswordVisible ? 'text' : 'password'"
+          :class="`form-control ${isCorrectPassword ? '' : 'is-invalid'}`"
           data-cy="input-password"
           id="inputPassword"
           :placeholder="$t('basic.passwordPlaceholder')"
@@ -168,17 +181,26 @@ const submitHandler = async () => {
         <label for="inputPassword">{{
           upperFirstLetter($t("basic.password"))
         }}</label>
+        <div class="invalid-feedback" data-cy="invalid-field__password">
+          {{ $t("error.incorrectPassword") }}
+        </div>
       </div>
-      <div v-if="!isCorrectPassword" class="invalid-field text-danger">
-        {{ $t("error.incorrectPassword") }}
-      </div>
+      <span
+        :class="`input-group-text ${isCorrectPassword ? '' : 'is-invalid'}`"
+        @click="showPassword"
+      >
+        <font-awesome-icon v-if="!isPasswordVisible" icon="eye" />
+        <font-awesome-icon v-else icon="eye-slash" />
+      </span>
     </div>
 
-    <div>
-      <div class="form-floating mb-3">
+    <div class="input-group has-validation">
+      <div class="form-floating form-floating__password">
         <input
-          type="password"
-          class="form-control"
+          :type="isRepeatedPasswordVisible ? 'text' : 'password'"
+          :class="`form-control ${
+            isCorrectRepeatedPassword ? '' : 'is-invalid'
+          }`"
           data-cy="input-repeat-password"
           id="inputRepeatPassword"
           :placeholder="$t('basic.repeatPasswordPlaceholder')"
@@ -188,17 +210,29 @@ const submitHandler = async () => {
         <label for="inputRepeatPassword">{{
           upperFirstLetter($t("basic.repeatPassword"))
         }}</label>
+        <div
+          class="invalid-feedback"
+          data-cy="invalid-field__repeated-password"
+        >
+          {{ $t("error.incorrectRepeatedPassword") }}
+        </div>
       </div>
-      <div v-if="!isCorrectRepeatedPassword" class="invalid-field text-danger">
-        {{ $t("error.incorrectRepeatedPassword") }}
-      </div>
+      <span
+        :class="`input-group-text ${
+          isCorrectRepeatedPassword ? '' : 'is-invalid'
+        }`"
+        @click="showRepeatedPassword"
+      >
+        <font-awesome-icon v-if="!isRepeatedPasswordVisible" icon="eye" />
+        <font-awesome-icon v-else icon="eye-slash" />
+      </span>
     </div>
 
     <div>
-      <div class="d-flex align-items-center gap-1">
+      <div class="form-check">
         <input
           type="checkbox"
-          class="form-check-input"
+          :class="`form-check-input ${isTermsChecked ? '' : 'is-invalid'}`"
           data-cy="checkbox-terms"
           id="inputTerms"
           required
@@ -207,9 +241,9 @@ const submitHandler = async () => {
         <label class="form-check-label" for="inputTerms">
           {{ $t("registration.terms") }}
         </label>
-      </div>
-      <div v-if="!isTermsChecked" class="invalid-field text-danger">
-        {{ $t("error.termsNotChecked") }}
+        <div class="invalid-feedback" data-cy="invalid-field__terms">
+          {{ $t("error.termsNotChecked") }}
+        </div>
       </div>
     </div>
 
@@ -228,5 +262,28 @@ form {
   max-width: 500px;
   margin: 50px auto 0;
   padding: 20px;
+
+  #inputPassword,
+  #inputRepeatPassword {
+    border-right: none;
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+  }
+
+  .form-floating__password {
+    width: calc(100% - 44px);
+  }
+
+  .input-group-text {
+    width: 45px;
+    max-height: 58px;
+    background: none;
+    border-left: none;
+    cursor: pointer;
+
+    &.is-invalid {
+      border-color: #dc3545;
+    }
+  }
 }
 </style>
