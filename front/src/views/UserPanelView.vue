@@ -21,11 +21,16 @@ const repeatedNewPassword = ref();
 const isValidName = ref(true);
 const isValidLastname = ref(true);
 const isValidEmail = ref(true);
-const isCorrectOldPassword = ref(true);
-const isCorrectNewPassword = ref(true);
-const isCorrectRepeatedNewPassword = ref(true);
+const isValidOldPassword = ref(true);
+const isValidNewPassword = ref(true);
+const isValidRepeatedNewPassword = ref(true);
+
+const isOldPasswordVisible = ref(false);
+const isNewPasswordVisible = ref(false);
+const isRepeatedNewPasswordVisible = ref(false);
 
 const changeDataSuccess = ref();
+const isCorrectOldPassword = ref(true);
 
 const getUserData = async () => {
   let response;
@@ -58,6 +63,7 @@ const clearChangePasswordForm = () => {
   newPassword.value = "";
   oldPassword.value = "";
   repeatedNewPassword.value = "";
+  isCorrectOldPassword.value = true;
 };
 
 const deleteAccount = async () => {
@@ -128,19 +134,20 @@ const changeUserPassword = async () => {
     changeDataSuccess.value = true;
     clearChangePasswordForm();
   } catch (error) {
+    isCorrectOldPassword.value = false;
     console.log(error);
   }
 };
 
 const validateDataHandler = (isNewPassword) => {
   if (isNewPassword) {
-    isCorrectOldPassword.value = useValidation.validatePassword(
+    isValidOldPassword.value = useValidation.validatePassword(
       oldPassword.value
     );
-    isCorrectNewPassword.value = useValidation.validatePassword(
+    isValidNewPassword.value = useValidation.validatePassword(
       newPassword.value
     );
-    isCorrectRepeatedNewPassword.value = useValidation.validateRepeatedPassword(
+    isValidRepeatedNewPassword.value = useValidation.validateRepeatedPassword(
       newPassword.value,
       repeatedNewPassword.value
     );
@@ -156,13 +163,31 @@ const checkIfAllFieldsAreValid = (isNewPassword) => {
 
   if (isNewPassword) {
     return (
-      isCorrectOldPassword.value &&
-      isCorrectNewPassword.value &&
-      isCorrectRepeatedNewPassword.value
+      isValidOldPassword.value &&
+      isValidNewPassword.value &&
+      isValidRepeatedNewPassword.value
     );
   }
 
   return isValidName.value && isValidLastname.value && isValidEmail.value;
+};
+
+const showOldPassword = () => {
+  if (!oldPassword.value) return;
+
+  isOldPasswordVisible.value = !isOldPasswordVisible.value;
+};
+
+const showNewPassword = () => {
+  if (!newPassword.value) return;
+
+  isNewPasswordVisible.value = !isNewPasswordVisible.value;
+};
+
+const showRepeatedNewPassword = () => {
+  if (!repeatedNewPassword.value) return;
+
+  isRepeatedNewPasswordVisible.value = !isRepeatedNewPasswordVisible.value;
 };
 
 onMounted(() => {
@@ -179,56 +204,62 @@ onMounted(() => {
     <form class="row" @submit.prevent="changeUserData" novalidate>
       <h3>{{ $t("settings.dataSectionHeader") }}</h3>
       <div>
-        <label for="inputName" class="form-label">{{
-          upperFirstLetter($t("basic.name"))
-        }}</label>
-        <input
-          type="text"
-          class="form-control"
-          data-cy="input-name"
-          id="inputName"
-          :placeholder="$t('basic.namePlaceholder')"
-          required
-          v-model="name"
-        />
-        <div v-if="!isValidName" class="invalid-field text-danger">
-          {{ $t("error.incorrectField") }}
+        <div class="form-floating">
+          <input
+            type="text"
+            :class="`form-control ${isValidName ? '' : 'is-invalid'}`"
+            data-cy="input-name"
+            id="inputName"
+            :placeholder="$t('basic.namePlaceholder')"
+            required
+            v-model="name"
+          />
+          <label for="inputName">{{
+            upperFirstLetter($t("basic.name"))
+          }}</label>
+          <div class="invalid-feedback" data-cy="invalid-field__name">
+            {{ $t("error.incorrectField") }}
+          </div>
         </div>
       </div>
 
       <div>
-        <label for="inputLastname" class="form-label">{{
-          upperFirstLetter($t("basic.lastname"))
-        }}</label>
-        <input
-          type="text"
-          class="form-control"
-          data-cy="input-lastname"
-          id="inputLastname"
-          :placeholder="$t('basic.lastnamePlaceholder')"
-          required
-          v-model="lastname"
-        />
-        <div v-if="!isValidLastname" class="invalid-field text-danger">
-          {{ $t("error.incorrectField") }}
+        <div class="form-floating">
+          <input
+            type="text"
+            :class="`form-control ${isValidLastname ? '' : 'is-invalid'}`"
+            data-cy="input-lastname"
+            id="inputLastname"
+            :placeholder="$t('basic.lastnamePlaceholder')"
+            required
+            v-model="lastname"
+          />
+          <label for="inputLastname">{{
+            upperFirstLetter($t("basic.lastname"))
+          }}</label>
+          <div class="invalid-feedback" data-cy="invalid-field__lastname">
+            {{ $t("error.incorrectField") }}
+          </div>
         </div>
       </div>
 
       <div>
-        <label for="inputEmail" class="form-label">{{
-          upperFirstLetter($t("basic.email"))
-        }}</label>
-        <input
-          type="email"
-          class="form-control"
-          data-cy="input-email"
-          id="inputEmail"
-          :placeholder="$t('basic.emailPlaceholder')"
-          required
-          v-model="email"
-        />
-        <div v-if="!isValidEmail" class="invalid-field text-danger">
-          {{ $t("error.incorrectEmail") }}
+        <div class="form-floating">
+          <input
+            type="email"
+            :class="`form-control ${isValidEmail ? '' : 'is-invalid'}`"
+            data-cy="input-email"
+            id="inputEmail"
+            :placeholder="$t('basic.emailPlaceholder')"
+            required
+            v-model="email"
+          />
+          <label for="inputEmail">{{
+            upperFirstLetter($t("basic.email"))
+          }}</label>
+          <div class="invalid-feedback" data-cy="invalid-field__email">
+            {{ $t("error.incorrectEmail") }}
+          </div>
         </div>
       </div>
 
@@ -243,61 +274,91 @@ onMounted(() => {
     <form class="row" @submit.prevent="changeUserPassword" novalidate>
       <h3>{{ $t("settings.passwordSectionHeader") }}</h3>
 
-      <div>
-        <label for="inputOldPassword" class="form-label">{{
-          upperFirstLetter($t("basic.oldPassword"))
-        }}</label>
-        <input
-          type="password"
-          class="form-control"
-          data-cy="input-password"
-          id="inputOldPassword"
-          :placeholder="$t('basic.oldPasswordPlaceholder')"
-          required
-          v-model="oldPassword"
-        />
-        <div v-if="!isCorrectOldPassword" class="invalid-field text-danger">
-          {{ $t("error.incorrectPassword") }}
-        </div>
+      <div v-if="!isCorrectOldPassword" class="alert alert-danger">
+        {{ $t("settings.wrongOldPassword") }}
       </div>
 
-      <div>
-        <label for="inputNewPassword" class="form-label">{{
-          upperFirstLetter($t("basic.newPassword"))
-        }}</label>
-        <input
-          type="password"
-          class="form-control"
-          data-cy="input-password"
-          id="inputNewPassword"
-          :placeholder="$t('basic.newPasswordPlaceholder')"
-          required
-          v-model="newPassword"
-        />
-        <div v-if="!isCorrectNewPassword" class="invalid-field text-danger">
-          {{ $t("error.incorrectPassword") }}
+      <div class="input-group has-validation">
+        <div class="form-floating form-floating__password">
+          <input
+            :type="isOldPasswordVisible ? 'text' : 'password'"
+            :class="`form-control ${isValidOldPassword ? '' : 'is-invalid'}`"
+            data-cy="input-password"
+            id="inputOldPassword"
+            :placeholder="$t('basic.oldPasswordPlaceholder')"
+            required
+            v-model="oldPassword"
+          />
+          <label for="inputOldPassword">{{
+            upperFirstLetter($t("basic.oldPassword"))
+          }}</label>
+          <div class="invalid-feedback" data-cy="invalid-field__password">
+            {{ $t("error.incorrectPassword") }}
+          </div>
         </div>
-      </div>
-
-      <div>
-        <label for="inputRepeatNewPassword" class="form-label">{{
-          upperFirstLetter($t("basic.repeatNewPassword"))
-        }}</label>
-        <input
-          type="password"
-          class="form-control"
-          data-cy="input-repeat-password"
-          id="inputRepeatNewPassword"
-          :placeholder="$t('basic.repeatNewPasswordPlaceholder')"
-          required
-          v-model="repeatedNewPassword"
-        />
-        <div
-          v-if="!isCorrectRepeatedNewPassword"
-          class="invalid-field text-danger"
+        <span
+          :class="`input-group-text ${isValidOldPassword ? '' : 'is-invalid'}`"
+          @click="showOldPassword"
         >
-          {{ $t("error.incorrectRepeatedPassword") }}
+          <font-awesome-icon v-if="!isOldPasswordVisible" icon="eye" />
+          <font-awesome-icon v-else icon="eye-slash" />
+        </span>
+      </div>
+
+      <div class="input-group has-validation">
+        <div class="form-floating form-floating__password">
+          <input
+            :type="isNewPasswordVisible ? 'text' : 'password'"
+            :class="`form-control ${isValidNewPassword ? '' : 'is-invalid'}`"
+            data-cy="input-password"
+            id="inputNewPassword"
+            :placeholder="$t('basic.newPasswordPlaceholder')"
+            required
+            v-model="newPassword"
+          />
+          <label for="inputNewPassword">{{
+            upperFirstLetter($t("basic.newPassword"))
+          }}</label>
+          <div class="invalid-feedback" data-cy="invalid-field__password">
+            {{ $t("error.incorrectPassword") }}
+          </div>
         </div>
+        <span
+          :class="`input-group-text ${isValidNewPassword ? '' : 'is-invalid'}`"
+          @click="showNewPassword"
+        >
+          <font-awesome-icon v-if="!isNewPasswordVisible" icon="eye" />
+          <font-awesome-icon v-else icon="eye-slash" />
+        </span>
+      </div>
+
+      <div class="input-group has-validation">
+        <div class="form-floating form-floating__password">
+          <input
+            :type="isRepeatedNewPasswordVisible ? 'text' : 'password'"
+            :class="`form-control ${isValidNewPassword ? '' : 'is-invalid'}`"
+            data-cy="input-password"
+            id="inputRepeatNewPassword"
+            :placeholder="$t('basic.repeatNewPasswordPlaceholder')"
+            required
+            v-model="repeatedNewPassword"
+          />
+          <label for="inputRepeatNewPassword">{{
+            upperFirstLetter($t("basic.repeatNewPassword"))
+          }}</label>
+          <div class="invalid-feedback" data-cy="invalid-field__password">
+            {{ $t("error.incorrectPassword") }}
+          </div>
+        </div>
+        <span
+          :class="`input-group-text ${
+            isValidRepeatedNewPassword ? '' : 'is-invalid'
+          }`"
+          @click="showRepeatedNewPassword"
+        >
+          <font-awesome-icon v-if="!isRepeatedNewPasswordVisible" icon="eye" />
+          <font-awesome-icon v-else icon="eye-slash" />
+        </span>
       </div>
 
       <div id="submitButton" class="col-6">
@@ -307,6 +368,7 @@ onMounted(() => {
         />
       </div>
     </form>
+
     <div class="settings__delete-account row">
       <h3>{{ $t("settings.deleteAccountHeader") }}</h3>
       <p class="my-3">{{ $t("settings.deleteAccountInformation") }}</p>
@@ -324,6 +386,30 @@ form {
   max-width: 500px;
   margin: 50px auto 0;
   padding: 20px;
+
+  #inputOldPassword,
+  #inputNewPassword,
+  #inputRepeatNewPassword {
+    border-right: none;
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+  }
+
+  .form-floating__password {
+    width: calc(100% - 44px);
+  }
+
+  .input-group-text {
+    width: 45px;
+    max-height: 58px;
+    background: none;
+    border-left: none;
+    cursor: pointer;
+
+    &.is-invalid {
+      border-color: #dc3545;
+    }
+  }
 }
 
 .settings__delete-account {

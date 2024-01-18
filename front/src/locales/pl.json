@@ -92,6 +92,7 @@
     "deleteAccountInformation": "Jeśli chcesz na stałe usunąć konto z serwisu kliknij w poniższy\n        przycisk. Proces jest nieodwracalny.",
     "deleteAccountButton": "Usuń konto",
     "dataSectionHeader": "Podstawowe dane",
-    "passwordSectionHeader": "Hasło"
+    "passwordSectionHeader": "Hasło",
+    "wrongOldPassword": "Podane zostało złe hasło"
   }
 }
