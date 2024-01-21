@@ -94,5 +94,18 @@
     "dataSectionHeader": "Podstawowe dane",
     "passwordSectionHeader": "Hasło",
     "wrongOldPassword": "Podane zostało złe hasło"
+  },
+  "images": {
+    "header": "Zdjęcia",
+    "hint": "Zapisz ważne dla Ciebie zdjęcia i miej do nich nieograniczony dostęp!",
+    "addNewImageButton": "Dodaj zdjęcie",
+    "chooseNewImageButton": "Wybierz zdjęcie",
+    "addNewImageSectionHeader": "Dodaj nowe zdjęcie",
+    "addedImagesSectionHeader": "Twoje zapisane zdjęcia",
+    "noImagesText": "Nie masz zapisanego żadnego zdjęcia",
+    "selectedImageAltText": "Wybrane zdjęcie użytkownika",
+    "imagePlaceholderAltText": "Przykładowe zdjęcie",
+    "userImageAltText": "Twoje dodane zdjęcie",
+    "enlargedUserImageAltText": "Twoje powiększone dodane zdjęcie"
   }
 }

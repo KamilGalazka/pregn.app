@@ -4,12 +4,14 @@ import axios from "axios";
 import routes from "@/helpers/routes";
 import { useStore } from "@/stores/store";
 import BasicButton from "@/components/BasicButton.vue";
+import ErrorView from "@/views/ErrorView.vue";
 
 const selectedFile = ref(null);
 const imageUrl = ref(null);
 const store = useStore();
 const userImages = ref([]);
 const userImagesList = ref();
+const bigImage = ref();
 
 const handleFileChange = (event) => {
   const file = event.target.files[0];
@@ -40,6 +42,7 @@ const saveImage = async () => {
     });
 
     selectedFile.value = null;
+    await getUserImagesList();
   } catch (error) {
     console.log(error);
   }
@@ -60,6 +63,7 @@ const getUserImagesList = async () => {
     console.log(error);
   }
 
+  userImages.value = [];
   userImagesList.value = response.data.response;
 
   for (const image of userImagesList.value) {
@@ -85,38 +89,125 @@ const getUserImage = async (imageName) => {
   }
 };
 
+const deleteImage = async (imageIndex) => {
+  const imageName = userImagesList.value[imageIndex].name;
+
+  try {
+    await axios({
+      method: "DELETE",
+      url: `${routes.user.image}/${imageName}`,
+      headers: {
+        Authorization: `Bearer ${store.userToken}`,
+      },
+    });
+
+    await getUserImagesList();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const enlargeImage = (imageIndex) => {
+  console.log(imageIndex);
+  bigImage.value = userImages.value[imageIndex];
+};
+
+const reduceImage = () => {
+  bigImage.value = "";
+};
+
 getUserImagesList();
 </script>
 
 <template>
-  <h1 class="mb-5">Zdjęcia</h1>
-  <p>Zapisz ważne dla Ciebie zdjęcia i miej do nich nieograniczony dostęp!</p>
-  <div class="user-images mt-10">
-    <div>
-      <label for="imageToUpload" class="btn btn-primary">Wybierz obraz</label>
-      <input id="imageToUpload" type="file" @change="handleFileChange" />
-      <img
-        v-if="selectedFile"
-        :src="imageUrl"
-        class="user-images__preview"
-        alt="Selected Image"
-      />
-      <p v-if="!selectedFile" class="alert alert-danger">
-        Wybierz plik graficzny
-      </p>
-      <BasicButton
-        buttonText="Zapisz w bazie"
-        @click.prevent="saveImage"
-        :disabled="!selectedFile"
-      />
+  <div v-if="store.isUserLogged" class="user-images">
+    <h1>{{ $t("images.header") }}</h1>
+    <p class="text-left mb-15">{{ $t("images.hint") }}</p>
+
+    <div class="container-fluid">
+      <div
+        class="row d-flex justify-content-center flex-lg-row flex-column align-items-center align-items-xxl-start"
+      >
+        <div class="col-10 col-xxl-6 mb-5">
+          <h3 class="mb-7">{{ $t("images.addNewImageButton") }}</h3>
+          <div
+            class="user-images__upload-section col-lg-6 d-flex flex-column m-auto mt-10"
+          >
+            <label for="imageToUpload" class="btn btn-primary">{{
+              $t("images.chooseNewImageButton")
+            }}</label>
+            <input id="imageToUpload" type="file" @change="handleFileChange" />
+            <div class="m-auto">
+              <img
+                v-if="selectedFile"
+                :src="imageUrl"
+                class="user-images__preview"
+                :alt="$t('images.selectedImageAltText')"
+              />
+              <img
+                v-else
+                src="../assets/image-placeholder.jpg"
+                class="user-images__preview"
+                :alt="$t('images.imagePlaceholderAltText')"
+              />
+            </div>
+            <BasicButton
+              class="user-images__send-image__button"
+              :buttonText="$t('images.addNewImageButton')"
+              @click.prevent="saveImage"
+              :disabled="!selectedFile"
+            />
+          </div>
+        </div>
+        <div class="col-10 col-xxl-6">
+          <h3 class="mb-7">
+            {{ $t("images.addedImagesSectionHeader") }}
+          </h3>
+          <p v-if="!userImages.length">
+            {{ $t("images.noImagesText") }}
+          </p>
+          <div
+            class="d-flex flex-wrap justify-content-center align-items-center gap-5"
+          >
+            <div
+              v-for="(image, index) in userImages"
+              :key="image"
+              class="user-images__thumbnail-container"
+            >
+              <img
+                :src="image"
+                class="user-images__thumbnail"
+                :alt="$t('images.userImageAltText')"
+              />
+              <div
+                class="user-images__thumbnail-actions-container justify-content-center align-items-center"
+              >
+                <div class="user-images__thumbnail-actions">
+                  <font-awesome-icon
+                    icon="up-right-and-down-left-from-center"
+                    style="color: #000000"
+                    size="xl"
+                    @click="enlargeImage(index)"
+                  />
+                  <font-awesome-icon
+                    icon="trash"
+                    style="color: #000000"
+                    size="xl"
+                    @click="deleteImage(index)"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div v-if="bigImage" class="user-images__big-image" @click="reduceImage">
+      <img :src="bigImage" :alt="$t('images.enlargedUserImageAltText')" />
     </div>
   </div>
-  <h3>Twoje zapisane zdjęcia</h3>
-  <div v-for="image in userImages" :key="image">
-    <div>
-      <img :src="image" class="user-images__thumbnail" />
-    </div>
-  </div>
+  <ErrorView v-else />
 </template>
 
 <style scoped lang="scss">
@@ -126,14 +217,82 @@ getUserImagesList();
     tab-index: -1;
   }
 
+  [for="imageToUpload"] {
+    height: 48px;
+    line-height: 34px;
+  }
+
+  &__send-image__button,
+  [for="imageToUpload"] {
+    width: 150px;
+    margin: 12px auto;
+  }
+
   &__preview {
-    width: 200px;
-    object-fit: contain;
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
   }
 
   &__thumbnail {
-    width: 100px;
-    object-fit: contain;
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    cursor: pointer;
+
+    &-container {
+      position: relative;
+      width: 200px;
+      height: 250px;
+
+      &:hover {
+        opacity: 0.8;
+
+        & .user-images__thumbnail-actions-container {
+          top: calc(100% - 50px);
+        }
+      }
+    }
+
+    &-actions-container {
+      position: absolute;
+      top: calc(100% - 100px);
+      left: 0;
+      display: flex;
+      width: 200px;
+      height: 50px;
+      z-index: -1;
+      transition: top linear 0.2s;
+
+      svg {
+        cursor: pointer;
+        opacity: 1;
+
+        &:nth-child(1) {
+          margin-right: 24px;
+        }
+
+        &:hover {
+          transform: scale(1.2);
+        }
+      }
+    }
+  }
+
+  &__big-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(221, 221, 221, 0.8);
+
+    img {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
   }
 }
 </style>

@@ -15,6 +15,8 @@ import {
   faSliders,
   faEye,
   faEyeSlash,
+  faTrash,
+  faUpRightAndDownLeftFromCenter,
   fas,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
@@ -48,6 +50,8 @@ library.add(
   faSliders,
   faEye,
   faEyeSlash,
+  faTrash,
+  faUpRightAndDownLeftFromCenter,
   fas,
   far
 );
