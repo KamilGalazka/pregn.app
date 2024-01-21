@@ -5,7 +5,9 @@ import LocaleChanger from "@/components/LocaleChanger.vue";
 import { useStore } from "@/stores/store";
 import routes from "@/helpers/routes";
 import router from "@/router";
+import { useI18n } from "vue-i18n";
 
+const { locale: currentLanguage } = useI18n({ useScope: "global" });
 const state = reactive({
   menuList: {},
 });
@@ -19,7 +21,7 @@ async function fetchMenuList() {
     url: routes.navigation,
   });
 
-  return response.data.response; //todo language check
+  return response.data.response;
 }
 
 function logoutHandler() {
@@ -41,89 +43,112 @@ function checkIfCategoryCanBeDisplayed(category) {
 </script>
 
 <template>
-  <nav class="nav">
-    <RouterLink to="/">
-      <img alt="Application logo" src="@/assets/logo.webp" class="nav__logo" />
-    </RouterLink>
+  <nav class="navbar navbar-expand-lg navbar-light mb-5">
+    <div class="container-fluid">
+      <RouterLink to="/" class="navbar-brand">
+        <img
+          :alt="$t('menu.logoAltText')"
+          src="@/assets/logo.webp"
+          width="180"
+          height="60"
+          class="d-inline-block align-text-top"
+        />
+      </RouterLink>
 
-    <ul class="nav__list">
-      <li
-        v-for="category in state.menuList"
-        :key="category"
-        class="nav__list--item"
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        :aria-label="$t('menu.menuButtonAriaLabel')"
       >
-        <RouterLink
-          v-if="checkIfCategoryCanBeDisplayed(category)"
-          :to="category.route"
-        >
-          {{ category.name_pl }}
-        </RouterLink>
-      </li>
-    </ul>
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-    <div class="d-flex gap-3 align-items-center">
-      <div v-if="store.isUserLogged">
-        <RouterLink to="/settings">
-          <font-awesome-icon icon="sliders" />
-        </RouterLink>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li
+            class="nav-item"
+            v-for="category in state.menuList"
+            :key="category"
+          >
+            <RouterLink
+              v-if="checkIfCategoryCanBeDisplayed(category)"
+              :to="category.route"
+              class="nav-link active"
+            >
+              {{
+                currentLanguage === "pl" ? category.name_pl : category.name_en
+              }}
+            </RouterLink>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              id="navbarDropdownMenuLink"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              {{ $t("menu.userDropdownButton") }}
+            </a>
+            <ul
+              class="dropdown-menu px-1"
+              aria-labelledby="navbarDropdownMenuLink"
+            >
+              <li v-if="store.isUserLogged" class="dropdown-item">
+                <RouterLink to="/settings">
+                  {{ $t("menu.settingsButton") }}
+                </RouterLink>
+              </li>
+              <li
+                v-if="store.isUserLogged && store.isUserAdmin"
+                class="dropdown-item"
+              >
+                <RouterLink to="/admin">
+                  {{ $t("menu.adminPanelButton") }}
+                </RouterLink>
+              </li>
+
+              <li
+                v-if="store.isUserLogged"
+                @click="logoutHandler"
+                class="dropdown-item nav__logout--button"
+                data-cy="header__logout-button"
+              >
+                {{ $t("menu.logoutButton") }}
+              </li>
+
+              <li v-else class="dropdown-item" data-cy="header__login-button">
+                <RouterLink to="/login" data-cy="header__login-button">
+                  {{ $t("menu.loginButton") }}
+                </RouterLink>
+              </li>
+
+              <li><hr class="dropdown-divider" /></li>
+
+              <li class="nav-item mt-3">
+                <LocaleChanger />
+              </li>
+            </ul>
+          </li>
+        </ul>
       </div>
-      <div v-if="store.isUserLogged && store.isUserAdmin">
-        <RouterLink to="/admin">
-          <font-awesome-icon icon="gears" />
-        </RouterLink>
-      </div>
-      <div
-        v-if="store.isUserLogged"
-        @click="logoutHandler"
-        class="nav__logout--button"
-        data-cy="header__logout-button"
-      >
-        <font-awesome-icon icon="right-from-bracket" />
-      </div>
-      <div v-else>
-        <RouterLink to="/login" data-cy="header__login-button">
-          <font-awesome-icon icon="user" />
-        </RouterLink>
-      </div>
-      <LocaleChanger />
     </div>
   </nav>
 </template>
 
 <style scoped lang="scss">
-.nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 0 60px;
+.nav__logout--button {
+  cursor: pointer;
+}
 
-  &__logo {
-    width: 180px;
-    height: 60px;
-  }
-
-  &__list {
-    display: flex;
-    justify-content: flex-end;
-    gap: 40px;
-    width: 60%;
-    align-items: center;
-    list-style: none;
-
-    a {
-      text-decoration: none;
-      color: black;
-      font-weight: 300;
-      letter-spacing: 3px;
-
-      &:hover {
-        color: #727272;
-      }
-    }
-  }
-
-  &__logout--button {
-    cursor: pointer;
-  }
+.dropdown-item a {
+  color: black;
+  text-decoration: none;
 }
 </style>

@@ -8,11 +8,7 @@ import router from "./router";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
   faPenToSquare,
-  faGears,
-  faUser,
-  faRightFromBracket,
   faCalendarDay,
-  faSliders,
   faEye,
   faEyeSlash,
   faTrash,
@@ -43,11 +39,7 @@ const i18n = createI18n({
 
 library.add(
   faPenToSquare,
-  faGears,
-  faUser,
-  faRightFromBracket,
   faCalendarDay,
-  faSliders,
   faEye,
   faEyeSlash,
   faTrash,

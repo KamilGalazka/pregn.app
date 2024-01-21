@@ -110,5 +110,14 @@
     "imagePlaceholderAltText": "Przykładowe zdjęcie",
     "userImageAltText": "Twoje dodane zdjęcie",
     "enlargedUserImageAltText": "Twoje powiększone dodane zdjęcie"
+  },
+  "menu": {
+    "logoAltText": "Logo główne serwisu Pregn.app",
+    "menuButtonAriaLabel": "Otwórz menu nawigacji",
+    "userDropdownButton": "Użytkownik",
+    "settingsButton": "Ustawienia",
+    "adminPanelButton": "Administracja",
+    "logoutButton": "Wylogowanie",
+    "loginButton": "Zaloguj się"
   }
 }
