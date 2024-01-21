@@ -11,6 +11,7 @@ const calendarRouter = require('./routes/calendarRoutes')
 const navigationRouter = require('./routes/navigationRoutes')
 const stageRouter = require('./routes/stageRoutes')
 const userRoutes = require('./routes/userRoutes')
+const imageRoutes = require('./routes/imageRoutes')
 
 dotenv.config()
 const app = express()
@@ -28,6 +29,7 @@ app.use(calendarRouter)
 app.use(navigationRouter)
 app.use(stageRouter)
 app.use(userRoutes)
+app.use(imageRoutes)
 
 process.on('exit', () => {
     client.end()

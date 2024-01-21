@@ -7,6 +7,7 @@ const routes = Object.freeze({
     tokenRefresh: `${prefix}/api/user/refresh`,
     changeUserData: `${prefix}/api/user/change/data`,
     changeUserPassword: `${prefix}/api/user/change/password`,
+    image: `${prefix}/api/user/image`,
   },
   navigation: `${prefix}/api/navigation`,
   stage: `${prefix}/api/stage`,
