@@ -125,11 +125,11 @@ fillValueForEditForm();
             type="text"
             class="form-control"
             id="noteTitle"
-            placeholder="Podaj tytuł"
+            :placeholder="$t('calendar.noteTitlePlaceholder')"
             required
             v-model="noteTitle"
           />
-          <label for="noteTitle">Tytuł</label>
+          <label for="noteTitle">{{ $t("calendar.noteTitle") }}</label>
         </div>
       </div>
       <div class="mb-3">
@@ -137,12 +137,12 @@ fillValueForEditForm();
           <textarea
             class="form-control"
             id="noteText"
-            placeholder="Podaj treść"
+            :placeholder="$t('calendar.noteTextPlaceholder')"
             required
             v-model="noteText"
             style="height: 150px"
           ></textarea>
-          <label for="noteText">Treść</label>
+          <label for="noteText">{{ $t("calendar.noteText") }}</label>
         </div>
       </div>
       <div class="mb-3">

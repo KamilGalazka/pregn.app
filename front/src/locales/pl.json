@@ -73,12 +73,15 @@
     "emptyCalendarText": "Nie masz dodanych żadnych wydarzeń do kalendarza. Najlepiej zrób to teraz, żeby o niczym nie zapomnieć.",
     "changeNoteButton": "Edytuj wpis",
     "deleteNoteButton": "Usuń wpis",
+    "noteTitlePlaceholder": "Podaj tytuł",
+    "noteTextPlaceholder": "Podaj treść",
     "prioritySelectPlaceholder": "Określ ważność wpisu",
     "priorityLow": "Niski",
     "priorityMedium": "Średni",
     "priorityHigh": "Wysoki",
     "noteDate": "Data: ",
-    "noteTitle": "Temat: "
+    "noteTitle": "Temat: ",
+    "noteText": "Treść: "
   },
   "article": {
     "healthCategoryHeader": "Zdrowie",
