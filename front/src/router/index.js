@@ -79,6 +79,13 @@ const routes = [
       import(/* webpackChunkName: "images" */ "../views/UserImagesView.vue"),
   },
   {
+    path: "/terms",
+    name: "terms",
+    component: () =>
+      import(/* webpackChunkName: "terms" */ "../components/BasicPage.vue"),
+    props: { pageType: "terms" },
+  },
+  {
     path: "/:pathMatch(.*)*",
     name: "error",
     component: () =>

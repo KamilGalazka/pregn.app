@@ -13,6 +13,7 @@ const routes = Object.freeze({
   stage: `${prefix}/api/stage`,
   calendar: `${prefix}/api/calendar`,
   article: `${prefix}/api/article`,
+  page: `${prefix}/api/page/`,
 });
 
 export default routes;

@@ -239,7 +239,9 @@ const showRepeatedPassword = () => {
           v-model="terms"
         />
         <label class="form-check-label" for="inputTerms">
-          {{ $t("registration.terms") }}
+          <RouterLink to="/terms" target="_blank">
+            {{ $t("registration.terms") }}
+          </RouterLink>
         </label>
         <div class="invalid-feedback" data-cy="invalid-field__terms">
           {{ $t("error.termsNotChecked") }}
