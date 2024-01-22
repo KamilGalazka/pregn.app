@@ -1,20 +1,137 @@
 {
-  "banner": {
-    "title": "Sample titel"
+  "basic": {
+    "name": "name",
+    "namePlaceholder": "Enter name",
+    "lastname": "lastname",
+    "lastnamePlaceholder": "Enter lastname",
+    "email": "email",
+    "emailPlaceholder": "Enter email",
+    "password": "password",
+    "passwordPlaceholder": "Enter password",
+    "repeatPassword": "repeat password",
+    "repeatPasswordPlaceholder": "Enter password again",
+    "oldPassword": "Current password",
+    "oldPasswordPlaceholder": "Enter password",
+    "newPassword": "New password",
+    "newPasswordPlaceholder": "Enter password",
+    "repeatNewPassword": "Repeat new password",
+    "repeatNewPasswordPlaceholder": "Enter password again",
+    "openArticleButton": "Read",
+    "footerText": "Designed by Kamil Gałązka"
   },
-  "headers": {
-    "registration": "sign up",
-    "login": "sign in"
+  "openingPage": {
+    "appName": "Pregn.app",
+    "mainText": "\"When you're pregnant, everything revolves around love.\"",
+    "buttonText": "Continue",
+    "imageAltText": "Couple discovers pregnancy"
+  },
+  "banner": {
+    "title": "Sample title"
   },
   "registration": {
-    "name": "name",
-    "lastname": "lastname",
-    "email": "email",
-    "password": "password",
-    "repeat_password": "repeat password",
-    "button": "sign up"
+    "header": "Registration",
+    "button": "Create account",
+    "terms": "I accept the terms and conditions.",
+    "success": "Registration successful. Redirecting in a moment."
   },
   "login": {
-    "button": "sign in"
+    "header": "Login",
+    "button": "Log in",
+    "noAccountPrefix": "Don't have an account?",
+    "noAccountPostfix": "Register now.",
+    "logout": "Logout"
+  },
+  "stages": {
+    "header": "Pregnancy Stages",
+    "week": "Week",
+    "trimester": "Trimester",
+    "informationSectionHeader": "Information",
+    "comparisonSectionHeader": "Comparison",
+    "comparisonInNumbersSectionHeader": "Data in Numbers",
+    "comparisonInNumbersSectionSize": "Size",
+    "comparisonInNumbersSectionWeight": "Weight"
+  },
+  "error": {
+    "incorrectEmail": "Incorrect email.",
+    "incorrectPassword": "Password too short.",
+    "incorrectRepeatedPassword": "Passwords do not match.",
+    "incorrectField": "Invalid field.",
+    "termsNotChecked": "Consent is mandatory.",
+    "global": "Something went wrong. Please try again.",
+    "userAlreadyExists": "User with the provided email already exists.",
+    "wrongPasswordOrEmail": "Incorrect login and/or password.",
+    "header404": "404",
+    "info404": "Page does not exist"
+  },
+  "admin": {
+    "header": "Administrator Panel",
+    "options": "Options",
+    "userWithoutAdminPrivilege": "Page only for site administrators",
+    "menu": {
+      "mainCategoryMenu": "Main Categories",
+      "tableTitlePl": "Category Name PL",
+      "tableTitleEn": "Category Name EN",
+      "tablePath": "Path",
+      "tablePublished": "Publication",
+      "tableVisibility": "Visibility",
+      "tableEdit": "Edit"
+    },
+    "saveChanges": "Save Changes"
+  },
+  "calendar": {
+    "header": "Calendar",
+    "hint": "Add dates worth remembering to your calendar",
+    "addToCalendarSectionHeader": "Add new date",
+    "addToCalendarButton": "Add to calendar",
+    "addedNotesSectionHeader": "Your added dates",
+    "emptyCalendarText": "You have not added any events to the calendar. It's best to do it now to not forget anything.",
+    "changeNoteButton": "Edit entry",
+    "deleteNoteButton": "Delete entry",
+    "noteTitlePlaceholder": "Enter title",
+    "noteTextPlaceholder": "Enter content",
+    "prioritySelectPlaceholder": "Specify entry priority",
+    "priorityLow": "Low",
+    "priorityMedium": "Medium",
+    "priorityHigh": "High",
+    "noteDate": "Date: ",
+    "noteTitle": "Topic: ",
+    "noteText": "Content: "
+  },
+  "article": {
+    "healthCategoryHeader": "Health",
+    "layetteCategoryHeader": "Layette"
+  },
+  "settings": {
+    "header": "Settings",
+    "changeUserDataButton": "Change data",
+    "dataChangedText": "Data has been changed",
+    "deleteAccountHeader": "Delete account",
+    "deleteAccountInformation": "If you want to permanently delete your account from the service, click the button below. The process is irreversible.",
+    "deleteAccountButton": "Delete account",
+    "dataSectionHeader": "Basic data",
+    "passwordSectionHeader": "Password",
+    "wrongOldPassword": "Incorrect old password"
+  },
+  "images": {
+    "header": "Photos",
+    "hint": "Save important photos and have unlimited access to them!",
+    "addNewImageButton": "Add photo",
+    "chooseNewImageButton": "Choose photo",
+    "addNewImageSectionHeader": "Add new photo",
+    "addedImagesSectionHeader": "Your saved photos",
+    "noImagesText": "You have not saved any photos",
+    "selectedImageAltText": "User's selected photo",
+    "imagePlaceholderAltText": "Sample photo",
+    "userImageAltText": "Your added photo",
+    "enlargedUserImageAltText": "Your enlarged added photo"
+  },
+  "menu": {
+    "logoAltText": "Main logo of Pregn.app service",
+    "menuButtonAriaLabel": "Open navigation menu",
+    "userDropdownButton": "User",
+    "settingsButton": "Settings",
+    "adminPanelButton": "Administration",
+    "logoutButton": "Logout",
+    "loginButton": "Log in"
   }
 }
