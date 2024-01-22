@@ -19,6 +19,12 @@
     "openArticleButton": "Przeczytaj",
     "footerText": "Zaprojektowane przez Kamila Gałązkę"
   },
+  "openingPage": {
+    "appName": "Pregn.app",
+    "mainText": "\"Gdy jesteś w ciąży, wszystko się kręci wokół miłości.\"",
+    "buttonText": "Przejdź dalej",
+    "imageAltText": "Para dowiaduje się o ciąży"
+  },
   "banner": {
     "title": "Przykładowy tytuł"
   },

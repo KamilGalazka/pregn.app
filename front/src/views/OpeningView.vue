@@ -7,24 +7,28 @@ const handleClose = () => store.setOpeningPageAsOpened();
 </script>
 
 <template>
-  <div class="opening-page__container">
-    <div class="opening-page">
-      <div class="opening-page__left">
-        <img src="../assets/couple.jpg" />
+  <div
+    class="opening-page__container d-flex justify-content-center align-items-center"
+  >
+    <div class="opening-page d-flex align-items-center flex-column flex-md-row">
+      <div>
+        <img
+          class="opening-page__image"
+          src="../assets/opening-page.svg"
+          :alt="$t('openingPage.imageAltText')"
+        />
       </div>
-      <div class="opening-page__right">
-        <h1 class="opening-page__header">pregn.app</h1>
-        <div class="opening-page__text">
-          <p class="opening-page__text--main">
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-          </p>
-          <p class="opening-page__text--extra">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-          </p>
+      <div class="d-flex flex-column justify-content-between">
+        <h1 class="opening-page__header mb-5 border-none">
+          {{ $t("openingPage.appName") }}
+        </h1>
+        <div class="opening-page__text mb-5">
+          <p>{{ $t("openingPage.mainText") }}</p>
         </div>
         <BasicButton
           @click="handleClose"
-          button-text="Przejdź dalej"
+          :button-text="$t('openingPage.buttonText')"
+          class="opening-page__button m-auto"
           data-cy="opening-page__button"
         />
       </div>
@@ -34,51 +38,49 @@ const handleClose = () => store.setOpeningPageAsOpened();
 
 <style scoped lang="scss">
 .opening-page {
-  display: flex;
-  align-items: center;
-  padding: 96px;
-  height: 70%;
+  padding: 0 24px;
+  max-width: 1200px;
 
   &__container {
     width: 100vw;
     height: 100vh;
-    background: #ebcfc2;
-    display: flex;
-    justify-content: center;
-    align-items: center;
   }
 
-  &__left {
-    height: 100%;
-    clip-path: polygon(20% 1%, 94% 1%, 81% 100%, 7% 100%);
+  &__image {
+    @media (max-width: 600px) {
+      width: 350px;
+      height: 350px;
+    }
 
-    img {
-      max-width: 950px;
+    @media (max-width: 350px) {
+      width: 250px;
+      height: 250px;
     }
   }
 
-  &__right {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 100%;
-  }
-
   &__header {
-    border: none;
+    color: black;
   }
 
   &__text {
     color: #e88a5f;
-    text-align: left;
+    font-size: 56px;
 
-    &--main {
-      font-size: 56px;
+    @media (max-width: 1200px) {
+      font-size: 42px;
     }
 
-    &--extra {
+    @media (max-width: 600px) {
+      font-size: 36px;
+    }
+
+    @media (max-width: 350px) {
       font-size: 24px;
     }
+  }
+
+  &__button {
+    width: 150px;
   }
 }
 </style>
