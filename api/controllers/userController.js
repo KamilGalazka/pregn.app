@@ -1,6 +1,14 @@
 const {client} = require('../services/dbService')
 const jwt = require("jsonwebtoken");
-const {hashPassword, comparePasswords, errorHandling} = require('../utils/helpers')
+const {
+    hashPassword,
+    comparePasswords,
+    errorHandling,
+    validateUserName,
+    validateUserLastname,
+    validateUserEmail,
+    validateUserPassword
+} = require('../utils/helpers')
 
 const createNewAccount = async (req, res) => {
     const {
@@ -10,6 +18,16 @@ const createNewAccount = async (req, res) => {
         password,
     } = req.body
     let queryResult
+
+    if (!validateUserName(name) ||
+        !validateUserLastname(lastname) ||
+        !validateUserEmail(email) ||
+        !validateUserPassword(password)
+    ) {
+        return res.status(403).json({
+            status: 'Wrong user data',
+        });
+    }
 
     const hashedPassword = await hashPassword(password)
 
@@ -57,6 +75,15 @@ const changeUserData = async (req, res) => {
     let queryResult
     const {name, lastname, email} = req.body
 
+    if (!validateUserName(name) ||
+        !validateUserLastname(lastname) ||
+        !validateUserEmail(email)
+    ) {
+        return res.status(403).json({
+            status: 'Wrong user data',
+        });
+    }
+
     const {id: userId} = res.locals.tokenData
 
     try {
@@ -76,6 +103,12 @@ const changeUserData = async (req, res) => {
 const changeUserPassword = async (req, res) => {
     const {newPassword} = req.body
     const {id: userId} = res.locals.tokenData
+
+    if (!validateUserPassword(newPassword)) {
+        return res.status(403).json({
+            status: 'Wrong user data',
+        });
+    }
 
     const hashedPassword = await hashPassword(newPassword)
 

@@ -28,8 +28,32 @@ const errorHandling = (methodName, endpointName, error) => {
     console.log('error', methodName, endpointName, error)
 }
 
+const validateUserName = (name) => {
+    return !!name
+}
+
+const validateUserLastname = (lastname) => {
+    return !!lastname
+}
+
+const validateUserEmail = (email) => {
+    return /^\S+@\S+\.\S+$/.test(email)
+}
+
+const validateUserPassword = (password) => {
+    const passwordMinLength = 6
+
+    if (!password) return false
+
+    return password.length >= passwordMinLength
+}
+
 module.exports = {
     hashPassword,
     comparePasswords,
     errorHandling,
+    validateUserName,
+    validateUserLastname,
+    validateUserEmail,
+    validateUserPassword,
 }
