@@ -1,29 +1,37 @@
 <script setup>
 import { useStore } from "@/stores/store";
 import router from "@/router";
-import { markRaw, ref } from "vue";
+import { computed, markRaw, ref } from "vue";
 import SetMainCategory from "@/components/admin/SetMainCategory.vue";
 import SetBasicLayout from "@/components/admin/SetBasicLayout.vue";
+import ErrorView from "@/views/ErrorView.vue";
+import { useI18n } from "vue-i18n";
 
-const items = [
-  {
-    name: "Kategorie główne",
-    component: markRaw(SetMainCategory),
-  },
-  {
-    name: "Wygląd",
-    component: markRaw(SetBasicLayout),
-  },
-];
+const { locale: currentLanguage } = useI18n({ useScope: "global" });
+
+const items = computed(() => {
+  return [
+    {
+      name: `${
+        currentLanguage.value === "pl" ? "Kategorie główne" : "Main category"
+      }`,
+      component: markRaw(SetMainCategory),
+    },
+    {
+      name: `${currentLanguage.value === "pl" ? "Wygląd" : "Layout"}`,
+      component: markRaw(SetBasicLayout),
+    },
+  ];
+});
 
 const store = useStore();
-const currentTab = ref(items[0].component);
+const currentTab = ref(items.value[0].component);
 
 if (!store.isUserLogged) router.push("/login");
 </script>
 
 <template>
-  <div v-if="store.isUserAdmin" class="admin">
+  <div v-if="store.isUserLogged && store.isUserAdmin" class="admin">
     <h1>{{ $t("admin.header") }}</h1>
     <div class="admin__container">
       <div class="admin__menu col-2">
@@ -36,7 +44,7 @@ if (!store.isUserLogged) router.push("/login");
         </ul>
       </div>
       <div class="admin__actions col-10">
-        <h3 class="admin__actions--header">Opcje</h3>
+        <h3 class="admin__actions--header">{{ $t("admin.options") }}</h3>
         <Suspense>
           <component :is="currentTab"></component>
           <template #fallback> Loading</template>
@@ -44,9 +52,7 @@ if (!store.isUserLogged) router.push("/login");
       </div>
     </div>
   </div>
-  <div v-else class="alert alert-danger">
-    {{ $t("admin.userWithoutAdminPrivilege") }}
-  </div>
+  <ErrorView v-else />
 </template>
 
 <style scoped lang="scss">

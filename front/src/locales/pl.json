@@ -58,9 +58,16 @@
   },
   "admin": {
     "header": "Panel administratora",
+    "options": "Opcje",
     "userWithoutAdminPrivilege": "Strona tylko dla administratorów serwisu",
     "menu": {
-      "mainCategoryMenu": "Kategorie główne"
+      "mainCategoryMenu": "Kategorie główne",
+      "tableTitlePl": "Nazwa kategorii PL",
+      "tableTitleEn": "Nazwa kategorii EN",
+      "tablePath": "Ścieżka",
+      "tablePublished": "Publikacja",
+      "tableVisibility": "Widoczność",
+      "tableEdit": "Edycja"
     },
     "saveChanges": "Zapisz zmiany"
   },

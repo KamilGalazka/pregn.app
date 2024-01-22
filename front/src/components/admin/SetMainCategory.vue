@@ -30,12 +30,12 @@ const saveChanges = () => {
       <thead>
         <tr>
           <th scope="col">#</th>
-          <th scope="col">Nazwa kategorii PL</th>
-          <th scope="col">Nazwa kategorii EN</th>
-          <th scope="col">Ścieżka</th>
-          <th scope="col">Publikacja</th>
-          <th scope="col">Widoczność</th>
-          <th scope="col">Edycja</th>
+          <th scope="col">{{ $t("admin.menu.tableTitlePl") }}</th>
+          <th scope="col">{{ $t("admin.menu.tableTitleEn") }}</th>
+          <th scope="col">{{ $t("admin.menu.tablePath") }}</th>
+          <th scope="col">{{ $t("admin.menu.tablePublished") }}</th>
+          <th scope="col">{{ $t("admin.menu.tableVisibility") }}</th>
+          <th scope="col">{{ $t("admin.menu.tableEdit") }}</th>
         </tr>
       </thead>
       <tbody class="">
