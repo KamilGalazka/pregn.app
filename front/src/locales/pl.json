@@ -16,7 +16,8 @@
     "newPasswordPlaceholder": "Podaj hasło",
     "repeatNewPassword": "Powtórz nowe hasło",
     "repeatNewPasswordPlaceholder": "Podaj ponownie hasło",
-    "openArticleButton": "Przeczytaj"
+    "openArticleButton": "Przeczytaj",
+    "footerText": "Zaprojektowane przez Kamila Gałązkę"
   },
   "banner": {
     "title": "Przykładowy tytuł"
