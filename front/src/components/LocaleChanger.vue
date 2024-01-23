@@ -1,7 +1,7 @@
 <script setup>
 const langs = [
-  { code: "pl", text: "Polski" },
-  { code: "en", text: "English" },
+  { code: "pl", text: "PL" },
+  { code: "en", text: "EN" },
 ];
 </script>
 

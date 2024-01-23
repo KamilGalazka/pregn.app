@@ -43,15 +43,15 @@ function checkIfCategoryCanBeDisplayed(category) {
 </script>
 
 <template>
-  <nav class="navbar navbar-expand-lg navbar-light mb-5">
+  <nav class="navbar navbar-expand-xl navbar-light mb-5">
     <div class="container-fluid">
       <RouterLink to="/" class="navbar-brand">
         <img
           :alt="$t('menu.logoAltText')"
           src="@/assets/logo.webp"
-          width="180"
-          height="60"
-          class="d-inline-block align-text-top"
+          width="200"
+          height="70"
+          class="d-inline-block align-text-top me-15"
         />
       </RouterLink>
 
@@ -97,7 +97,7 @@ function checkIfCategoryCanBeDisplayed(category) {
               {{ $t("menu.userDropdownButton") }}
             </a>
             <ul
-              class="dropdown-menu px-1"
+              class="dropdown-menu px-1 mb-3"
               aria-labelledby="navbarDropdownMenuLink"
             >
               <li v-if="store.isUserLogged" class="dropdown-item">
@@ -105,6 +105,9 @@ function checkIfCategoryCanBeDisplayed(category) {
                   {{ $t("menu.settingsButton") }}
                 </RouterLink>
               </li>
+
+              <li><hr class="dropdown-divider" /></li>
+
               <li
                 v-if="store.isUserLogged && store.isUserAdmin"
                 class="dropdown-item"
@@ -113,6 +116,8 @@ function checkIfCategoryCanBeDisplayed(category) {
                   {{ $t("menu.adminPanelButton") }}
                 </RouterLink>
               </li>
+
+              <li><hr class="dropdown-divider" /></li>
 
               <li
                 v-if="store.isUserLogged"
@@ -128,13 +133,11 @@ function checkIfCategoryCanBeDisplayed(category) {
                   {{ $t("menu.loginButton") }}
                 </RouterLink>
               </li>
-
-              <li><hr class="dropdown-divider" /></li>
-
-              <li class="nav-item mt-3">
-                <LocaleChanger />
-              </li>
             </ul>
+          </li>
+
+          <li class="nav-item nav-item__locale-changer ms-5">
+            <LocaleChanger />
           </li>
         </ul>
       </div>
@@ -143,12 +146,32 @@ function checkIfCategoryCanBeDisplayed(category) {
 </template>
 
 <style scoped lang="scss">
-.nav__logout--button {
-  cursor: pointer;
-}
+#navbarNav {
+  #navbarDropdownMenuLink {
+    color: black;
+  }
 
-.dropdown-item a {
-  color: black;
-  text-decoration: none;
+  .nav__logout--button {
+    cursor: pointer;
+  }
+
+  .dropdown-item a {
+    color: black;
+    text-decoration: none;
+  }
+
+  .router-link-active {
+    color: $basic-color-blue;
+  }
+
+  .nav-item:not(.dropdown):hover a,
+  .dropdown-item:hover a,
+  .dropdown-item.nav__logout--button:hover {
+    color: $basic-color-hover;
+  }
+
+  .nav-item__locale-changer {
+    width: 80px;
+  }
 }
 </style>
