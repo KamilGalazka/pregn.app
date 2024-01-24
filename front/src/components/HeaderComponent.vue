@@ -49,9 +49,7 @@ function checkIfCategoryCanBeDisplayed(category) {
         <img
           :alt="$t('menu.logoAltText')"
           src="@/assets/logo.webp"
-          width="200"
-          height="70"
-          class="d-inline-block align-text-top me-15"
+          class="d-inline-block align-text-top"
         />
       </RouterLink>
 
@@ -146,6 +144,18 @@ function checkIfCategoryCanBeDisplayed(category) {
 </template>
 
 <style scoped lang="scss">
+.navbar-brand img {
+  width: 200px;
+  height: 70px;
+  margin-right: 60px;
+
+  @media (max-width: 400px) {
+    margin-right: 0;
+    width: 150px;
+    height: 55px;
+  }
+}
+
 #navbarNav {
   #navbarDropdownMenuLink {
     color: black;
