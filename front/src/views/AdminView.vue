@@ -46,7 +46,9 @@ if (!store.isUserLogged) router.push("/login");
       <div class="admin__actions col-10">
         <h3 class="admin__actions--header">{{ $t("admin.options") }}</h3>
         <Suspense>
-          <component :is="currentTab"></component>
+          <Transition name="fade" mode="out-in">
+            <component :is="currentTab"></component>
+          </Transition>
           <template #fallback> Loading</template>
         </Suspense>
       </div>
@@ -88,5 +90,15 @@ if (!store.isUserLogged) router.push("/login");
       margin-bottom: 24px;
     }
   }
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>
