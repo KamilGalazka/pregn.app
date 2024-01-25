@@ -104,7 +104,9 @@ function checkIfCategoryCanBeDisplayed(category) {
                 </RouterLink>
               </li>
 
-              <li><hr class="dropdown-divider" /></li>
+              <li v-if="store.isUserLogged">
+                <hr class="dropdown-divider" />
+              </li>
 
               <li
                 v-if="store.isUserLogged && store.isUserAdmin"
@@ -115,7 +117,9 @@ function checkIfCategoryCanBeDisplayed(category) {
                 </RouterLink>
               </li>
 
-              <li><hr class="dropdown-divider" /></li>
+              <li v-if="store.isUserLogged">
+                <hr class="dropdown-divider" />
+              </li>
 
               <li
                 v-if="store.isUserLogged"
