@@ -69,8 +69,11 @@ const openArticle = (articleId) => {
 
 <style scoped lang="scss">
 .card {
+  border: none;
+
   &-title {
     font-size: 20px;
+    height: 55px;
   }
 
   &-img {
@@ -92,6 +95,10 @@ const openArticle = (articleId) => {
       font-size: 12px;
       color: gray;
     }
+  }
+
+  &-text {
+    height: 100px;
   }
 }
 </style>

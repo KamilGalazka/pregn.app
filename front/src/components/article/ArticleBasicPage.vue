@@ -40,29 +40,4 @@ getArticles();
   </div>
 </template>
 
-<style scoped lang="scss">
-.card {
-  &-title {
-    font-size: 20px;
-  }
-
-  &-img {
-    transition: transform 0.1s linear;
-
-    &:hover {
-      transform: scale(1.05);
-    }
-  }
-
-  &-date {
-    margin-top: 10px;
-    margin-bottom: 20px;
-
-    span {
-      margin-left: 5px;
-      font-size: 12px;
-      color: gray;
-    }
-  }
-}
-</style>
+<style scoped lang="scss"></style>
