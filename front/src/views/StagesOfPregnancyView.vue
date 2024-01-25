@@ -215,6 +215,11 @@ onMounted(() => {
     .map__stages {
       gap: 24px;
 
+      @media (max-width: 360px) {
+        flex-direction: column;
+        gap: 8px;
+      }
+
       &--stage {
         cursor: pointer;
 
