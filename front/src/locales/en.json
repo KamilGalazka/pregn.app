@@ -49,7 +49,12 @@
     "comparisonSectionHeader": "Comparison",
     "comparisonInNumbersSectionHeader": "Data in Numbers",
     "comparisonInNumbersSectionSize": "Size",
-    "comparisonInNumbersSectionWeight": "Weight"
+    "comparisonInNumbersSectionWeight": "Weight",
+    "trimesterInformation": [
+      "The first trimester of pregnancy spans three months, equivalent to 13 weeks. During this time, a pregnancy test is usually conducted, confirming the imminent expansion of the family. It is crucial in this stage to choose an obstetrician to oversee the pregnancy and undergo the first ultrasound examination (USG). In the initial 13 weeks, symptoms such as fatigue, excessive drowsiness, body weakness, nausea, and vomiting may occur. Some women may also experience mood swings. It is advisable to be attentive to the body's signals, allowing time for rest and managing challenging emotions. Additionally, though the abdomen is typically not yet visible in the first trimester, the expanding uterus may lead to discomforts such as lower abdominal pain and frequent urination. Any health concerns should be discussed with the attending physician.",
+      "The second trimester of pregnancy lasts from week 14 to week 27. During this period, symptoms that were bothersome in the first trimester should subside. Nevertheless, new discomforts such as leg swelling, constipation, bloating, and indigestion may arise. Back pain may also occur in the second trimester. Regular check-ups, including the mid-pregnancy ultrasound, are essential during this time.",
+      "The third trimester of pregnancy spans from week 28 to week 40. This is a period of intensive fetal development. At this stage, symptoms reminiscent of the first trimester, such as nausea, vomiting, fatigue, and excessive drowsiness, may resurface. Other characteristic symptoms of this stage include back pain, ankle swelling, and leg muscle cramps. The third trimester is primarily a time for preparing for the arrival of the baby, including gathering baby essentials, setting up the nursery, and mentally preparing for the approaching childbirth."
+    ]
   },
   "error": {
     "incorrectEmail": "Incorrect email.",

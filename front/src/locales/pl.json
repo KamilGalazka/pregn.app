@@ -49,7 +49,12 @@
     "comparisonSectionHeader": "Porównanie",
     "comparisonInNumbersSectionHeader": "Dane w liczbach",
     "comparisonInNumbersSectionSize": "Rozmiar",
-    "comparisonInNumbersSectionWeight": "Waga"
+    "comparisonInNumbersSectionWeight": "Waga",
+    "trimesterInformation": [
+      "Pierwszy okres ciąży obejmuje trzy miesiące, co równa się 13 tygodniom. W tym czasie zazwyczaj przeprowadza się test ciążowy, otrzymując potwierdzenie, że rodzina wkrótce się powiększy. W tym etapie ważne jest wybranie lekarza ginekologa do prowadzenia ciąży oraz wykonanie pierwszego badania ultrasonograficznego (USG). Przez pierwsze 13 tygodni mogą wystąpić objawy takie jak zmęczenie, nadmierna senność, osłabienie organizmu, nudności i wymioty. Niektóre kobiety mogą także doświadczać wahania nastroju. Warto wówczas być wrażliwym na sygnały organizmu, zapewniając sobie czas na odpoczynek i radzenie sobie z trudnymi emocjami. Warto również pamiętać, że chociaż brzuch w pierwszym trymestrze zazwyczaj nie jest jeszcze widoczny, to rozszerzająca się macica może powodować pewne dolegliwości, takie jak ból podbrzusza i częste parcie na mocz. Wszelkie wątpliwości dotyczące zdrowia należy omówić z lekarzem prowadzącym ciążę.",
+      "Drugi etap ciąży trwa od 14 do 27 tygodnia. W tym okresie symptomy, które były uciążliwe w pierwszym trymestrze, powinny ustąpić. Niemniej jednak mogą pojawić się nowe nieprzyjemności, takie jak obrzęki nóg, zaparcia, wzdęcia czy niestrawność. Dodatkowo, w drugim trymestrze mogą występować bóle pleców. W tym okresie warto pamiętać o regularnych badaniach, w tym o USG połówkowym.",
+      "Trzeci etap ciąży trwa od 28 do 40 tygodnia. To okres intensywnego rozwoju dziecka. W tym czasie mogą powrócić objawy znane z pierwszego trymestru, takie jak nudności, wymioty, zmęczenie i nadmierna senność. Wśród innych charakterystycznych dla tego okresu objawów ciąży wymienić można bóle pleców, obrzęki kostek i skurcze mięśni nóg. Trzeci trymestr to przede wszystkim czas przygotowań do nadejścia dziecka, w tym gromadzenia wyprawki, urządzania pokoju dla noworodka i mentalnego przygotowania się do zbliżającego się porodu."
+    ]
   },
   "error": {
     "incorrectEmail": "Niepoprawny email.",

@@ -96,6 +96,15 @@ onMounted(() => {
         {{ $t("stages.trimester") }} {{ trimester }}
       </div>
     </div>
+
+    <div
+      class="trimester__information-container container-lg m-auto p-5 mb-5 d-flex justify-content-center align-items-center"
+    >
+      <p class="text-center">
+        {{ $t(`stages.trimesterInformation[${chosenTrimester - 1}]`) }}
+      </p>
+    </div>
+
     <div class="map__weeks d-flex flex-wrap justify-content-between">
       <div class="map__weeks--line"></div>
       <div
@@ -110,7 +119,7 @@ onMounted(() => {
       </div>
     </div>
   </div>
-  <div class="container-lg m-auto">
+  <div class="stages__information-wrapper container-lg m-auto py-5">
     <div
       class="stages__information-container m-auto row d-flex justify-content-center flex-md-row flex-column align-items-center align-items-lg-start"
     >
@@ -189,6 +198,16 @@ onMounted(() => {
 
 <style scoped lang="scss">
 .stages {
+  &__information-wrapper {
+    min-height: 500px;
+    background: linear-gradient(
+      90deg,
+      rgba(255, 236, 236, 1) 0%,
+      rgba(251, 192, 192, 1) 100%
+    );
+    border-radius: 50px;
+  }
+
   &__information-container {
     max-width: 900px;
 
@@ -276,5 +295,15 @@ onMounted(() => {
       }
     }
   }
+}
+
+.trimester__information-container {
+  min-height: 270px;
+  background: linear-gradient(
+    90deg,
+    rgba(251, 192, 192, 1) 0%,
+    rgba(255, 236, 236, 1) 100%
+  );
+  border-radius: 50px;
 }
 </style>
