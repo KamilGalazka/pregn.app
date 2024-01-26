@@ -25,9 +25,6 @@
     "buttonText": "Przejdź dalej",
     "imageAltText": "Para dowiaduje się o ciąży"
   },
-  "banner": {
-    "title": "Przykładowy tytuł"
-  },
   "registration": {
     "header": "Rejestracja",
     "button": "Załóż konto",
@@ -138,5 +135,23 @@
     "adminPanelButton": "Administracja",
     "logoutButton": "Wylogowanie",
     "loginButton": "Zaloguj się"
+  },
+  "mainPage": {
+    "bannerTitle": "Poznaj już teraz kolejne etapy rozwoju Twojego dziecka",
+    "bannerButtonText": "Przejdź dalej",
+    "bannerAltImageText": "Kolejne etapy rozwoju ciąży",
+    "accountBannerHeader": "Załóż konto w serwisie <strong>pregn.app</strong> i zyskaj dostęp do:",
+    "accountBannerLeft": "Kalendarza",
+    "accountBannerLeftImageAltText": "Kobieta dodająca wydarzenia do kalendarza",
+    "accountBannerRight": "Zapisania zdjęć",
+    "accountBannerRightImageAltText": "Kobieta dodająca zdjęcie do zapisania",
+    "articlesBannerHeader": "Zapoznaj się z artykułami w serwisie",
+    "articlesBannerLeftHeader": "Zdrowie",
+    "articlesBannerRightHeader": "Wyprawka",
+    "articlesBannerLeftDescription": "Dowiedz się więcej na temat zdrowia w ciąży",
+    "articlesBannerRightDescription": "Poznaj artykuły dotyczące pierwszej wyprawki",
+    "articlesBannerLeftImageAltText": "Kobieta ze zdrowym jedzeniem",
+    "articlesBannerRightImageAltText": "Para myśląca o wyprawce dla dziecka",
+    "articlesBannerButtonText": "Dowiedz się więcej"
   }
 }

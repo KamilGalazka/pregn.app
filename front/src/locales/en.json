@@ -25,9 +25,6 @@
     "buttonText": "Continue",
     "imageAltText": "Couple discovers pregnancy"
   },
-  "banner": {
-    "title": "Sample title"
-  },
   "registration": {
     "header": "Registration",
     "button": "Create account",
@@ -138,5 +135,23 @@
     "adminPanelButton": "Administration",
     "logoutButton": "Logout",
     "loginButton": "Log in"
+  },
+  "mainPage": {
+    "bannerTitle": "Discover the successive stages of your child's development now",
+    "bannerButtonText": "Continue",
+    "bannerAltImageText": "Successive stages of pregnancy development",
+    "accountBannerHeader": "Create an account on <strong>pregn.app</strong> and gain access to:",
+    "accountBannerLeft": "Calendar",
+    "accountBannerLeftImageAltText": "Woman adding events to the calendar",
+    "accountBannerRight": "Saving photos",
+    "accountBannerRightImageAltText": "Woman adding a photo to save",
+    "articlesBannerHeader": "Explore articles on the platform",
+    "articlesBannerLeftHeader": "Health",
+    "articlesBannerRightHeader": "Baby Gear",
+    "articlesBannerLeftDescription": "Learn more about health during pregnancy",
+    "articlesBannerRightDescription": "Explore articles on essential baby gear",
+    "articlesBannerLeftImageAltText": "Woman with healthy food",
+    "articlesBannerRightImageAltText": "Couple thinking about baby gear",
+    "articlesBannerButtonText": "Learn more"
   }
 }
