@@ -26,7 +26,7 @@ import BasicButton from "@/components/BasicButton.vue";
           :alt="$t('mainPage.accountBannerLeftImageAltText')"
         />
         <p class="h4 text-center">
-          {{ $t("mainPage.accountBannerLeftImageAltText") }}
+          {{ $t("mainPage.accountBannerLeft") }}
         </p>
       </div>
       <div class="d-flex flex-column justify-content-center align-items-center">
@@ -37,7 +37,7 @@ import BasicButton from "@/components/BasicButton.vue";
           :alt="$t('mainPage.accountBannerLeftImageAltText')"
         />
         <p class="h4 text-center">
-          {{ $t("mainPage.accountBannerRightImageAltText") }}
+          {{ $t("mainPage.accountBannerRight") }}
         </p>
       </div>
     </div>
