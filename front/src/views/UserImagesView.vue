@@ -136,7 +136,12 @@ getUserImagesList();
             <label for="imageToUpload" class="btn btn-primary">{{
               $t("images.chooseNewImageButton")
             }}</label>
-            <input id="imageToUpload" type="file" @change="handleFileChange" />
+            <input
+              id="imageToUpload"
+              type="file"
+              accept="image/*"
+              @change="handleFileChange"
+            />
             <div class="m-auto">
               <img
                 v-if="selectedFile"
