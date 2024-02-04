@@ -3,7 +3,7 @@ import Basic from "./Basic";
 class MainPage extends Basic {
     headerLocator = 'h1'
     loginButtonLocator = '[data-cy="header__login-button"]'
-    logoutButtonlocator = '[data-cy="header__logout-button"]'
+    logoutButtonLocator = '[data-cy="header__logout-button"]'
 
     getHeader() {
         return cy.get(this.headerLocator)
@@ -14,7 +14,7 @@ class MainPage extends Basic {
     }
 
     getLogoutButton() {
-        return cy.get(this.logoutButtonlocator)
+        return cy.get(this.logoutButtonLocator)
     }
 
     clickLoginButton() {
